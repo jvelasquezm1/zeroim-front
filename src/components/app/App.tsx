@@ -4,8 +4,8 @@ import './App.css';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app">
+      <header className="app-header">
         <p>
           Birthday choice
         </p>

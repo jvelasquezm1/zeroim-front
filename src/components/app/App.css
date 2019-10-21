@@ -1,4 +1,4 @@
-.App-header {
+.app-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -9,6 +9,6 @@
   color: white;
 }
 
-.App-link {
+.app-link {
   color: #09d3ac;
 }
