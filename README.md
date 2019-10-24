@@ -1,9 +1,28 @@
 # React js starter
 
-### `npm start`
+### Run locally
 
-### `npm test`
+##### `npm start`
 
-### `npm run build`
+##### `npm test`
 
-### `npm run eject`
+##### `npm run build`
+
+##### `npm run eject`
+
+### Run with docker
+
+##### run the docker image
+``npm docker``
+
+##### build the docker image
+``npm docker-build``
+
+##### access terminal
+``npm docker-bash``
+
+##### access logs
+``npm docker-logs``
+
+##### stop docker
+``npm docker-stop``
