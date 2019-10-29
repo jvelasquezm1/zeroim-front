@@ -17,7 +17,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "docker": "docker-compose up -d",
+    "docker-build" : "docker-compose up --build -d",
+    "docker-bash" : "docker exec -it react bash",
+    "docker-logs" : "docker logs react -t -f",
+    "docker-stop": "docker-compose down"
   },
   "eslintConfig": {
     "extends": "react-app"
