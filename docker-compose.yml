@@ -10,5 +10,5 @@ services:
       - 3000:3000 
     container_name: react
     volumes: 
-      - ./src/app/src
+      - ./src:/app/src
     restart: always
