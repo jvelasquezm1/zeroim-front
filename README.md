@@ -24,6 +24,8 @@ Update your app name in
 #### Service worker
 If your app won't have a service worker, delete `src/serviceWorker.ts` and all references to it on `src/index.tsx`
 
+#### Building a backofffice 
+If you're building a back office, be sure to update robots.txt file to deny web crawlers access to it so it's not indexed on search engines. (Check the [docs](https://www.robotstxt.org/robotstxt.html) if needed) 
 
 ### Run locally
 
