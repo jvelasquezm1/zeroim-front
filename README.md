@@ -1,28 +1,77 @@
-# React js starter
+# Starter skeleton for reactjs apps
+
+## Using this starter
+Starting a new wemanity project using koa as your backend? Follow these steps: 
+- Fork this project into your personal repos
+- Got to ``settings > general > advanced``
+- Rename the project and path
+- Remove fork relationship (so you don't accidentally push to this repo)
+- Transfer ownership of the repo back to ``wecraftbe``
+- #profit
+
+## Development
+Independetly of which environment you decide to use for development, you'll need to:
+
+##### Install depedencies 
+``npm i``
+
+#### Update app name
+Update your app name in 
+- public/index.html > title tag
+- public/manifest.json > name and shortname
+
+#### Service worker
+If your app won't have a service worker, delete `src/serviceWorker.ts` and all references to it on `src/index.tsx`
+
+#### Building a backofffice 
+If you're building a back office, be sure to update robots.txt file to deny web crawlers access to it. Consequently, it will not be indexed on search engines. (Check the [docs](https://www.robotstxt.org/robotstxt.html) if needed)
+
+#### Env variables 
+Copy and rename `.env.example` or `docker/dev.docker-compose.example.dev` (remove the .example), depending on what environment will be working on. 
+Define variable values
+
+#### API 
+This starter ships with an API service. If your app doesn't use one, feel free to remove `services/api` completely and its respective env variables.
 
 ### Run locally
 
-##### `npm start`
+##### Start app
+``npm start``
 
-##### `npm test`
+##### Run tests in watch mode 
+``npm test``
 
-##### `npm run build`
 
-##### `npm run eject`
+### Run on docker
 
-### Run with docker
+##### Setup 
+Update container and image name on docker-compose.yml to one specific to your app
 
-##### run the docker image
-``npm docker``
+##### Starts container
+``npm run docker``
 
-##### build the docker image
-``npm docker-build``
+##### Changes to docker image
+``npm run docker:build``
 
-##### access terminal
-``npm docker-bash``
+##### Run tests
+Access the container bash by using ``npm run docker:bash``.
+Run tests by running ``npm test``
 
-##### access logs
-``npm docker-logs``
+##### Stopping container
+``npm run docker:stop``
 
-##### stop docker
-``npm docker-stop``
+##### Access container terminal 
+``npm run docker:bash``
+
+##### View container logs
+``npm run docker:logs``
+
+
+## Deployment
+
+##### Regular
+Finish the deploy stage script in ``gitlab-ci.yml`` to your needs and that should be it
+
+##### Docker
+*Section to be updated once this has been tried*
+Never tried it, but test and fix if needed (prolly will be) the production docker image, found in `docker/prod.dockerfile`

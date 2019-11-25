@@ -12,3 +12,6 @@ bower_componets
 psd
 thumb
 sketch
+build
+.env
+docker/dev.docker-compose.yml
