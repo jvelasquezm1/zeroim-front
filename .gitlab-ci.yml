@@ -14,7 +14,7 @@ before_script:
 testing: 
   stage: test
   script: 
-    - npm run test:once
+    - npm t
   except: 
     - master
 
