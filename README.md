@@ -11,10 +11,15 @@ Starting a new wemanity project using koa as your backend? Follow these steps:
 
 
 ## Development
-Independetly of which environment you decide to use for development, you'll need to install dependencies first 
+Independetly of which environment you decide to use for development, you'll need to:
 
 ##### Install depedencies 
 ``npm i``
+
+#### Update names 
+Update your app name in 
+- public/index.html > title tag
+- public/manifest.json > name and shortname
 
 ### Run locally
 
