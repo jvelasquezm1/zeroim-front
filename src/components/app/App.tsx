@@ -1,17 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import './App.css';
+import "./App.css";
 
 const App: React.FC = () => {
-  return (
-    <div className="app">
-      <header className="app-header">
-        <p>
-          Birthday choice
-        </p>
-      </header>
-    </div>
-  );
-}
+	return (
+		<div className="app">
+			<header className="app-header">
+				<p>React app</p>
+			</header>
+		</div>
+	);
+};
 
 export default App;
