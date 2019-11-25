@@ -16,10 +16,14 @@ Independetly of which environment you decide to use for development, you'll need
 ##### Install depedencies 
 ``npm i``
 
-#### Update names 
+#### Update app name
 Update your app name in 
 - public/index.html > title tag
 - public/manifest.json > name and shortname
+
+#### Service worker
+If your app won't have a service worker, delete `src/serviceWorker.ts` and all references to it on `src/index.tsx`
+
 
 ### Run locally
 
