@@ -1,21 +1,29 @@
-image: node:latest
+image: node:12
 
 stages:
-  - build
   - test
+  - deploy
 
 cache:
   paths:
-    - node_modules/
+    - node_modules
 
-install_dependencies:
-  stage: build
-  script:
-    - npm install
-  artifacts:
-    paths:
-      - node_modules/
+before_script:
+  - npm i
 
-testing:
+testing: 
   stage: test
-  script: npm test
+  script: 
+    - npm run test:once
+  except: 
+    - master
+
+deploying: 
+  stage: deploy
+  script: 
+    - npm run build
+    # add steps needed to deploy the api 
+  when:
+    on_success
+  only:
+    - master
