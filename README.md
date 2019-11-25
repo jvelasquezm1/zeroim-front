@@ -9,7 +9,6 @@ Starting a new wemanity project using koa as your backend? Follow these steps:
 - Transfer ownership of the repo back to ``wecraftbe``
 - #profit
 
-
 ## Development
 Independetly of which environment you decide to use for development, you'll need to:
 
@@ -25,7 +24,14 @@ Update your app name in
 If your app won't have a service worker, delete `src/serviceWorker.ts` and all references to it on `src/index.tsx`
 
 #### Building a backofffice 
-If you're building a back office, be sure to update robots.txt file to deny web crawlers access to it so it's not indexed on search engines. (Check the [docs](https://www.robotstxt.org/robotstxt.html) if needed) 
+If you're building a back office, be sure to update robots.txt file to deny web crawlers access to it so it's not indexed on search engines. (Check the [docs](https://www.robotstxt.org/robotstxt.html) if needed)
+
+#### Env variables 
+Copy and rename `.env.example` or `docker/dev.docker-compose.example.dev` (remove the .example), depending on what environment will be working on. 
+Define variable values
+
+#### Api 
+This starter ships with an api service. If your app doesn't use one, feel free to remove `services/api` completely and the respective env variables
 
 ### Run locally
 
