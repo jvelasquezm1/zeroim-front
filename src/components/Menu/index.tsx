@@ -1,13 +1,14 @@
 import React from "react";
 
 import "./Menu.scss";
+import { Link } from "react-router-dom";
 
 export default function Menu() {
   return (
     <div className="sidenav">
-      <a href="clientes">Clientes</a>
-      <a href="inventario">Inventario</a>
-      <a href="factura">Factura</a>
+      <Link to="/clientes">Clientes</Link>
+      <Link to="/inventario">Inventario</Link>
+      <Link to="/facturas">Facturas</Link>
     </div>
   );
 }

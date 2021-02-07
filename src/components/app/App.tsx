@@ -6,6 +6,8 @@ import {
   Redirect,
 } from "react-router-dom";
 
+import Stock from "../Stock";
+import Bill from "../Bill";
 import Clients from "../Clients";
 import Menu from "../Menu";
 
@@ -18,6 +20,8 @@ const App: React.FC = () => {
         <Menu />
         <Switch>
           <Route path="/clientes" exact component={Clients} />
+          <Route path="/inventario" exact component={Stock} />
+          <Route path="/facturas" exact component={Bill} />
           <Route path="/" exact component={Clients} />
           <Redirect to="/" />
         </Switch>
