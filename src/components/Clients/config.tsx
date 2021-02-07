@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ColDef, CellParams, GridApi } from "@material-ui/data-grid";
-import { Button } from "@material-ui/core";
+import "font-awesome/css/font-awesome.min.css";
+import "./Clients.scss";
 
 export let rowSelected = {} as any;
 
@@ -16,7 +17,7 @@ export const columns: ColDef[] = [
     headerName: "Action",
     disableClickEventBubbling: true,
     renderCell: (params: CellParams) => {
-      const onClick = () => {
+      const selectRow = () => {
         const api: GridApi = params.api;
         const fields = api
           .getAllColumns()
@@ -32,7 +33,16 @@ export const columns: ColDef[] = [
         return thisRow;
       };
 
-      return <Button onClick={onClick}>Editar</Button>;
+      return (
+        <div className="flex-container space-between">
+          <button className="button-transparent" onClick={selectRow}>
+            <i className="fa fa-edit"></i>
+          </button>
+          <button className="button-transparent" onClick={selectRow}>
+            <i className="fa fa-trash red"></i>
+          </button>
+        </div>
+      );
     },
   },
 ];

@@ -16,9 +16,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/data-grid": "^4.0.0-alpha.19",
-    "@types/react-redux": "^7.1.16",
-    "@types/react-router-dom": "^5.1.7",
-    "@types/redux-thunk": "^2.1.0",
+    "font-awesome": "^4.7.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-redux": "^7.2.2",
@@ -31,6 +29,9 @@
     "@types/node": "12.11.1",
     "@types/react": "16.9.9",
     "@types/react-dom": "16.9.2",
+    "@types/react-redux": "^7.1.16",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/redux-thunk": "^2.1.0",
     "node-sass": "^4.14.1",
     "react-scripts": "^4.0.2",
     "typescript": "3.6.4"
