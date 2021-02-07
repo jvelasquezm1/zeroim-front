@@ -12,6 +12,7 @@ import Clients from "../Clients";
 import Menu from "../Menu";
 
 import "./App.scss";
+import CreateClient from "../Clients/CreateClient";
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         <Menu />
         <Switch>
           <Route path="/clientes" exact component={Clients} />
+          <Route path="/clientes/crear" exact component={CreateClient} />
           <Route path="/inventario" exact component={Stock} />
           <Route path="/facturas" exact component={Bill} />
           <Route path="/" exact component={Clients} />

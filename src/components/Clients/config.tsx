@@ -1,6 +1,6 @@
 export const mockedRows = [
   {
-    id: 1,
+    id: "1231232",
     idType: "nit",
     address: "Cra 43 No 21-32",
     phone: "31243214",
@@ -8,7 +8,7 @@ export const mockedRows = [
     firstName: "Jon",
   },
   {
-    id: 2,
+    id: "1231231",
     idType: "cc",
     address: "Cra 43 No 21-32",
     phone: "31243214",
@@ -16,7 +16,7 @@ export const mockedRows = [
     firstName: "Cersei",
   },
   {
-    id: 3,
+    id: "1231233",
     idType: "cc",
     address: "Cra 43 No 21-32",
     phone: "31243214",
@@ -24,7 +24,7 @@ export const mockedRows = [
     firstName: "Jaime",
   },
   {
-    id: 4,
+    id: "1231234",
     idType: "cc",
     address: "Cra 43 No 21-32",
     phone: "31243214",
@@ -32,7 +32,7 @@ export const mockedRows = [
     firstName: "Arya",
   },
   {
-    id: 5,
+    id: "1231235",
     idType: "cc",
     address: "Cra 43 No 21-32",
     phone: "31243214",
@@ -40,7 +40,7 @@ export const mockedRows = [
     firstName: "Daenerys",
   },
   {
-    id: 6,
+    id: "1231236",
     idType: "cc",
     address: "Cra 43 No 21-32",
     phone: "31243214",
@@ -48,7 +48,7 @@ export const mockedRows = [
     firstName: "Daenerys",
   },
   {
-    id: 7,
+    id: "1231237",
     idType: "cc",
     address: "Cra 43 No 21-32",
     phone: "31243214",
@@ -56,7 +56,7 @@ export const mockedRows = [
     firstName: "Ferrara",
   },
   {
-    id: 8,
+    id: "1231238",
     idType: "cc",
     address: "Cra 43 No 21-32",
     phone: "31243214",
@@ -64,7 +64,7 @@ export const mockedRows = [
     firstName: "Rossini",
   },
   {
-    id: 9,
+    id: "1231239",
     idType: "cc",
     address: "Cra 43 No 21-32",
     phone: "31243214",
@@ -72,7 +72,7 @@ export const mockedRows = [
     firstName: "Harvey",
   },
   {
-    id: 10,
+    id: "1231212",
     idType: "cc",
     address: "Cra 43 No 21-32",
     phone: "31243214",

@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import EditForm from "src/containers/EditForm";
 import DeleteAlert from "src/containers/DeleteAlert";
+import { Link } from "react-router-dom";
 
 function Client(props: any) {
   const dispatch = useDispatch();
@@ -35,8 +36,8 @@ function Client(props: any) {
     setOpenModal(true);
   };
   const columns: ColDef[] = [
-    { field: "id", headerName: "ID", width: 95 },
-    { field: "idType", headerName: "Tipo ID", width: 185 },
+    { field: "idType", headerName: "Tipo", width: 95 },
+    { field: "id", headerName: "ID", width: 185 },
     { field: "firstName", headerName: "Nombre", width: 185 },
     { field: "lastName", headerName: "Apellido", width: 185 },
     { field: "address", headerName: "Direccion", width: 185 },
@@ -86,13 +87,12 @@ function Client(props: any) {
       },
     },
   ];
+
   return (
     <div className="table-container">
       <div className="flex-container space-between">
         <h2>Clientes</h2>
-        <button className="add-button" onClick={() => console.log(selectedRow)}>
-          Agregar
-        </button>
+        <Link to="/clientes/crear">Agregar</Link>
       </div>
       <Table rows={mockedRows} columns={columns} pageSize={10} />
       <Dialog
