@@ -1,7 +1,12 @@
 .sidenav {
-  height: 100vh;
   background-color: #111;
   padding-top: 20px;
+  position: fixed;
+  height: 100%;
+}
+
+.side-container {
+  margin-right: 8rem;
 }
 
 .sidenav a {
