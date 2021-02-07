@@ -14,6 +14,8 @@
     "docker:stop": "docker-compose -f docker/dev.docker-compose.yml down"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/data-grid": "^4.0.0-alpha.19",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-router-dom": "^5.1.2"
@@ -24,7 +26,7 @@
     "@types/react": "16.9.9",
     "@types/react-dom": "16.9.2",
     "node-sass": "^4.14.1",
-    "react-scripts": "3.2.0",
+    "react-scripts": "^4.0.2",
     "typescript": "3.6.4"
   },
   "eslintConfig": {
