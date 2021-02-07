@@ -1,15 +1,28 @@
 import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+
+import Clients from "../Clients";
+import Menu from "../Menu";
 
 import "./App.scss";
-import Table from "../Table";
 
 const App: React.FC = () => {
   return (
-    <div className="app">
-      <header className="app-header">
-        <Table></Table>
-      </header>
-    </div>
+    <Router>
+      <div className="flex-container">
+        <Menu />
+        <Switch>
+          <Route path="/clientes" exact component={Clients} />
+          <Route path="/" exact component={Clients} />
+          <Redirect to="/" />
+        </Switch>
+      </div>
+    </Router>
   );
 };
 
