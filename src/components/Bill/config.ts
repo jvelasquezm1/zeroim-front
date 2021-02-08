@@ -1,22 +1,11 @@
-import { ColDef } from "@material-ui/data-grid";
-
-export const columns: ColDef[] = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "idType", headerName: "Tipo ID", width: 200 },
-  { field: "firstName", headerName: "Nombre", width: 200 },
-  { field: "lastName", headerName: "Apellido", width: 200 },
-  { field: "address", headerName: "Direccion", width: 200 },
-  { field: "phone", headerName: "Telefono", width: 200 },
-];
-
 export const mockedRows = [
-  { id: 1, idType: "nit", address: "Cra 43 No 21-32", phone: "31243214", lastName: "Snow", firstName: "Jon" },
-  { id: 2, idType: "cc", address: "Cra 43 No 21-32", phone: "31243214", lastName: "Lannister", firstName: "Cersei" },
-  { id: 3, idType: "cc", address: "Cra 43 No 21-32", phone: "31243214", lastName: "Lannister", firstName: "Jaime" },
-  { id: 4, idType: "cc", address: "Cra 43 No 21-32", phone: "31243214", lastName: "Stark", firstName: "Arya" },
-  { id: 5, idType: "cc", address: "Cra 43 No 21-32", phone: "31243214", lastName: "Targaryen", firstName: "Daenerys" },
-  { id: 6, idType: "cc", address: "Cra 43 No 21-32", phone: "31243214", lastName: "Melisandre", firstName: "Daenerys" },
-  { id: 7, idType: "cc", address: "Cra 43 No 21-32", phone: "31243214", lastName: "Clifford", firstName: "Ferrara" },
-  { id: 8, idType: "cc", address: "Cra 43 No 21-32", phone: "31243214", lastName: "Frances", firstName: "Rossini" },
-  { id: 9, idType: "cc", address: "Cra 43 No 21-32", phone: "31243214", lastName: "Roxie", firstName: "Harvey" },
+  { id: 1, date: "23/12/2020", clientID: "31243214", detailID: "31243214", detail: "1234321", total: "$321321" },
+  { id: 2, date: "23/12/2020", clientID: "31243214", detailID: "31243214", detail: "1234321", total: "$321321" },
+  { id: 3, date: "23/12/2020", clientID: "31243214", detailID: "31243214", detail: "1234321", total: "$321321" },
+  { id: 4, date: "23/12/2020", clientID: "31243214", detailID: "31243214", detail: "1234321", total: "$321321" },
+  { id: 5, date: "23/12/2020", clientID: "31243214", detailID: "31243214", detail: "1234321", total: "$321321" },
+  { id: 6, date: "23/12/2020", clientID: "31243214", detailID: "31243214", detail: "1234321", total: "$321321" },
+  { id: 7, date: "23/12/2020", clientID: "31243214", detailID: "31243214", detail: "1234321", total: "$321321" },
+  { id: 8, date: "23/12/2020", clientID: "31243214", detailID: "31243214", detail: "1234321", total: "$321321" },
+  { id: 9, date: "23/12/2020", clientID: "31243214", detailID: "31243214", detail: "1234321", total: "$321321" },
 ];
