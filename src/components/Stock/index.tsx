@@ -29,8 +29,9 @@ function Stock(props: any) {
   };
   const columns: ColDef[] = [
     { field: "id", headerName: "ID", width: 120 },
-    { field: "product", headerName: "Producto", width: 440 },
-    { field: "quantity", headerName: "cantidad", width: 440 },
+    { field: "product", headerName: "Producto", width: 293 },
+    { field: "quantity", headerName: "Cantidad", width: 293 },
+    { field: "price", headerName: "Precio", width: 293 },
     {
       field: "",
       headerName: "Action",
@@ -51,8 +52,8 @@ function Stock(props: any) {
   return (
     <div className="table-container">
       <div className="flex-container space-between">
-        <h2>Stock</h2>
-        <Link to="/stock/crear">Agregar</Link>
+        <h2>Inventario</h2>
+        <Link to="/inventario/crear">Agregar</Link>
       </div>
       <Table rows={mockedRows} columns={columns} pageSize={10} />
       <Modals

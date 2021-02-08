@@ -13,6 +13,7 @@ import Menu from "../Menu";
 
 import "./App.scss";
 import CreateClient from "../Clients/CreateClient";
+import CreateStock from "../Stock/CreateStock";
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
           <Route path="/clientes" exact component={Clients} />
           <Route path="/clientes/crear" exact component={CreateClient} />
           <Route path="/inventario" exact component={Stock} />
+          <Route path="/inventario/crear" exact component={CreateStock} />
           <Route path="/facturas" exact component={Bill} />
           <Route path="/" exact component={Clients} />
           <Redirect to="/" />

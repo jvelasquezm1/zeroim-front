@@ -1,7 +1,6 @@
 import * as React from "react";
 import { connect, useDispatch } from "react-redux";
 import "font-awesome/css/font-awesome.min.css";
-import "./Clients.scss";
 
 import Table from "src/containers/Table";
 import * as ClientsActions from "src/store/actions/clients.actions";
