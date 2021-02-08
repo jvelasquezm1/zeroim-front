@@ -61,6 +61,7 @@ function Client(props: any) {
         openModal={openModal}
         handleClose={handleClose}
         selectedRow={selectedRow}
+        type="clients"
       />
     </div>
   );

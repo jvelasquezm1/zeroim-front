@@ -62,6 +62,7 @@ function Bill(props: any) {
         openModal={openModal}
         handleClose={handleClose}
         selectedRow={selectedRow}
+        type="bill"
       />
     </div>
   );

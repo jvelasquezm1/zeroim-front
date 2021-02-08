@@ -60,6 +60,7 @@ function Stock(props: any) {
         openModal={openModal}
         handleClose={handleClose}
         selectedRow={selectedRow}
+        type="stock"
       />
     </div>
   );

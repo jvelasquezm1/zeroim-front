@@ -16,13 +16,14 @@ export default function Modals(props: ModalsProps) {
       open={props.openModal}
       onClose={props.handleClose}
       aria-labelledby="form-dialog-title"
+      fullWidth
     >
       <DialogTitle id="form-dialog-title">
         {props.selectedRow.edit ? "Editar" : "Borrar"}
       </DialogTitle>
       <DialogContent>
         {props.selectedRow.edit ? (
-          <EditForm selectedRow={props.selectedRow} type="stock" />
+          <EditForm selectedRow={props.selectedRow} type={props.type} />
         ) : (
           <DeleteAlert selectedRow={props.selectedRow} />
         )}

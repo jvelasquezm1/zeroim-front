@@ -1,0 +1,17 @@
+.home-container {
+  width: 100%;
+  text-align: center;
+}
+
+.logo-img {
+  width: 30rem;
+}
+
+.home-menu {
+  display: flex;
+  justify-content: space-around;
+
+  a {
+    text-decoration: none;
+  }
+}
