@@ -1,11 +1,21 @@
 import React from "react";
 
-export default function CreateBills() {
-  const [id, setId] = React.useState("");
-  const [date, setDate] = React.useState("");
-  const [clientID, setClientID] = React.useState("");
-  const [total, setTotal] = React.useState("");
-  const [detailID, setDetailID] = React.useState("");
+export default function CreateBills(props: any) {
+  const [id, setId] = React.useState(
+    props.selectedRow ? props.selectedRow.id : ""
+  );
+  const [date, setDate] = React.useState(
+    props.selectedRow ? props.selectedRow.date : ""
+  );
+  const [clientID, setClientID] = React.useState(
+    props.selectedRow ? props.selectedRow.clientID : ""
+  );
+  const [total, setTotal] = React.useState(
+    props.selectedRow ? props.selectedRow.total : ""
+  );
+  const [detailID, setDetailID] = React.useState(
+    props.selectedRow ? props.selectedRow.detailID : ""
+  );
 
   const handleId = (event: any) => {
     setId(event.target.value);
@@ -30,7 +40,7 @@ export default function CreateBills() {
   return (
     <div className="create-container">
       <form>
-        <h2>Crear detalle de factura:</h2>
+        <h2>Crear factura:</h2>
         <h4>ID</h4>
         <input
           className="form-input"

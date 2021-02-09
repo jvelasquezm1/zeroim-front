@@ -1,11 +1,21 @@
 import React from "react";
 
-export default function CreateClient() {
-  const [idType, setIdType] = React.useState("0");
-  const [id, setId] = React.useState("");
-  const [name, setName] = React.useState("");
-  const [phone, setPhone] = React.useState("");
-  const [address, setAddress] = React.useState("");
+export default function CreateClient(props: any) {
+  const [idType, setIdType] = React.useState(
+    props.selectedRow ? props.selectedRow.idType : "0"
+  );
+  const [id, setId] = React.useState(
+    props.selectedRow ? props.selectedRow.id : ""
+  );
+  const [name, setName] = React.useState(
+    props.selectedRow ? props.selectedRow.name : ""
+  );
+  const [phone, setPhone] = React.useState(
+    props.selectedRow ? props.selectedRow.phone : ""
+  );
+  const [address, setAddress] = React.useState(
+    props.selectedRow ? props.selectedRow.address : ""
+  );
 
   const handleIdType = (event: any) => {
     setIdType(event.target.value);

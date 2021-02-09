@@ -1,10 +1,18 @@
 import React from "react";
 
-export default function CreateStock() {
-  const [id, setId] = React.useState("");
-  const [product, setProduct] = React.useState("");
-  const [quantity, setQuantity] = React.useState("");
-  const [price, setPrice] = React.useState("");
+export default function CreateStock(props: any) {
+  const [id, setId] = React.useState(
+    props.selectedRow ? props.selectedRow.id : ""
+  );
+  const [product, setProduct] = React.useState(
+    props.selectedRow ? props.selectedRow.product : ""
+  );
+  const [quantity, setQuantity] = React.useState(
+    props.selectedRow ? props.selectedRow.quantity : ""
+  );
+  const [price, setPrice] = React.useState(
+    props.selectedRow ? props.selectedRow.price : ""
+  );
 
   const handleId = (event: any) => {
     setId(event.target.value);

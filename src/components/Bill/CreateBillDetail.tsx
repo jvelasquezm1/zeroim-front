@@ -1,10 +1,18 @@
 import React from "react";
 
-export default function CreateBillDetail() {
-  const [id, setId] = React.useState("");
-  const [producto, setProducto] = React.useState("");
-  const [quantity, setQuantity] = React.useState("");
-  const [totalPrice, setTotalPrice] = React.useState("");
+export default function CreateBillDetail(props: any) {
+  const [id, setId] = React.useState(
+    props.selectedRow ? props.selectedRow.id : ""
+  );
+  const [producto, setProducto] = React.useState(
+    props.selectedRow ? props.selectedRow.producto : ""
+  );
+  const [quantity, setQuantity] = React.useState(
+    props.selectedRow ? props.selectedRow.quantity : ""
+  );
+  const [totalPrice, setTotalPrice] = React.useState(
+    props.selectedRow ? props.selectedRow.totalPrice : ""
+  );
 
   const handleId = (event: any) => {
     setId(event.target.value);

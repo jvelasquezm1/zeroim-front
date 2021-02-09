@@ -17,7 +17,12 @@ function Bill(props: any) {
     dispatch(BillsActions.fetchBills());
   }, []);
   const [openModal, setOpenModal] = React.useState(false);
+  const [openDetailModal, setOpenDetailModal] = React.useState(false);
   const [selectedRow, setSelectedRow] = React.useState({
+    edit: false,
+    delete: false,
+  });
+  const [selectedDetailRow, setSelectedDetailRow] = React.useState({
     edit: false,
     delete: false,
   });
@@ -27,11 +32,47 @@ function Bill(props: any) {
   const handleOpen = () => {
     setOpenModal(true);
   };
+  const handleDetailClose = () => {
+    setOpenDetailModal(false);
+  };
+  const handleDetailOpen = (params: any) => {
+    setSelectedDetailRow(Object.assign(params, { edit: true, delete: false }));
+    setOpenDetailModal(true);
+  };
+  const mockBillDetails = [
+    {
+      id: 9,
+      producto: "23/12/2020",
+      quantity: "31243214",
+      totalPrice: "31243214",
+    },
+    {
+      id: 8,
+      producto: "23/12/2020",
+      quantity: "31243214",
+      totalPrice: "31243214",
+    },
+  ];
   const columns: ColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
     { field: "date", headerName: "Fecha", width: 220 },
     { field: "clientID", headerName: "ID Cliente", width: 220 },
-    { field: "detailID", headerName: "Detalles", width: 220 },
+    {
+      field: "detailID",
+      headerName: "Detalles",
+      width: 220,
+      renderCell: (params: CellParams) => {
+        return (
+          <div key={params.row.id}>
+            {mockBillDetails.map((detail) => (
+              <button key={detail.id} onClick={() => handleDetailOpen(detail)}>
+                {detail.id}
+              </button>
+            ))}
+          </div>
+        );
+      },
+    },
     { field: "total", headerName: "TOTAL", width: 220 },
     {
       field: "",
@@ -63,6 +104,12 @@ function Bill(props: any) {
         handleClose={handleClose}
         selectedRow={selectedRow}
         type="bill"
+      />
+      <Modals
+        openModal={openDetailModal}
+        handleClose={handleDetailClose}
+        selectedRow={selectedDetailRow}
+        type="billDetail"
       />
     </div>
   );
