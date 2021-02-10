@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect, useDispatch } from "react-redux";
-import "font-awesome/css/font-awesome.min.css";
 
 import Table from "src/containers/Table";
 import * as ClientsActions from "src/store/actions/clients.actions";
@@ -52,9 +51,9 @@ function Client(props: any) {
 
   return (
     <div className="table-container">
-      <div className="flex-container space-between">
+      <div className="flex-container space-between add-button">
         <h2>Clientes</h2>
-        <Link to="/clientes/crear">Agregar</Link>
+        <Link to="/clientes/crear">Agregar Cliente</Link>
       </div>
       <Table rows={mockedRows} columns={columns} pageSize={10} />
       <Modals

@@ -6,6 +6,8 @@ import {
   Redirect,
 } from "react-router-dom";
 
+import "font-awesome/css/font-awesome.min.css";
+
 import Stock from "../Stock";
 import Bill from "../Bill";
 import Clients from "../Clients";

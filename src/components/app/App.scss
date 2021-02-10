@@ -25,5 +25,17 @@
 }
 
 .create-container {
-  margin-left: 35rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-button a {
+  text-decoration: none;
+  background-color: green;
+  color: white;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 0.9rem;
+  border-radius: 0.5rem;
+  margin-left: 1rem;
 }

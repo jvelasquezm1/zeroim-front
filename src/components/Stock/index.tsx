@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect, useDispatch } from "react-redux";
-import "font-awesome/css/font-awesome.min.css";
 
 import Table from "src/containers/Table";
 import * as StockActions from "src/store/actions/stock.actions";
@@ -51,9 +50,9 @@ function Stock(props: any) {
 
   return (
     <div className="table-container">
-      <div className="flex-container space-between">
+      <div className="flex-container space-between add-button">
         <h2>Inventario</h2>
-        <Link to="/inventario/crear">Agregar</Link>
+        <Link to="/inventario/crear">Agregar Producto</Link>
       </div>
       <Table rows={mockedRows} columns={columns} pageSize={10} />
       <Modals

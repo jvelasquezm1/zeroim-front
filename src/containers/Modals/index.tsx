@@ -29,9 +29,14 @@ export default function Modals(props: ModalsProps) {
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.handleClose} color="secondary">
-          Cancel
+        <Button onClick={props.handleClose} color="primary">
+          Cancelar
         </Button>
+        {props.selectedRow.delete && (
+          <Button onClick={props.handleClose} color="secondary">
+            Borrar
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );

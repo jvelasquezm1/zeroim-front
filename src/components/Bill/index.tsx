@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect, useDispatch } from "react-redux";
-import "font-awesome/css/font-awesome.min.css";
 
 import Table from "src/containers/Table";
 import * as BillsActions from "src/store/actions/bills.actions";
@@ -95,8 +94,10 @@ function Bill(props: any) {
     <div className="table-container">
       <div className="flex-container space-between">
         <h2>Facturas</h2>
-        <Link to="/facturas/crear">Agregar Factura</Link>
-        <Link to="/facturas/crear/detalle">Agregar Detalle</Link>
+        <div className="flex-container add-button">
+          <Link to="/facturas/crear">Agregar Factura</Link>
+          <Link to="/facturas/crear/detalle">Agregar Detalle</Link>
+        </div>
       </div>
       <Table rows={mockedRows} columns={columns} pageSize={10} />
       <Modals
