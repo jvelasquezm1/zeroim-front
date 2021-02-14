@@ -1,4 +1,5 @@
 import React from "react";
+import { Input } from "@material-ui/core";
 
 export default function CreateStock(props: any) {
   const [id, setId] = React.useState(
@@ -34,9 +35,9 @@ export default function CreateStock(props: any) {
   return (
     <div className="create-container">
       <form>
-        <h2>Crear producto en inventario:</h2>
+        {!props.edit && <h2>Crear producto en inventario</h2>}
         <h4>ID</h4>
-        <input
+        <Input
           className="form-input"
           type="text"
           name="id"
@@ -45,7 +46,7 @@ export default function CreateStock(props: any) {
           placeholder="ID"
         />
         <h4>Nombre de producto</h4>
-        <input
+        <Input
           className="form-input"
           type="text"
           name="product"
@@ -54,7 +55,7 @@ export default function CreateStock(props: any) {
           placeholder="Producto"
         />
         <h4>Cantidad</h4>
-        <input
+        <Input
           className="form-input"
           type="number"
           name="quantity"
@@ -63,7 +64,7 @@ export default function CreateStock(props: any) {
           placeholder="Cantidad"
         />
         <h4>Precio</h4>
-        <input
+        <Input
           className="form-input"
           type="text"
           name="price"
@@ -72,7 +73,9 @@ export default function CreateStock(props: any) {
           placeholder="Precio"
         />
       </form>
-      <button onClick={addStock}>Crear</button>
+      <button className="create-button" onClick={addStock}>
+        {props.edit ? "Editar" : "Crear"}
+      </button>
     </div>
   );
 }

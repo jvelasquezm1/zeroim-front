@@ -9,15 +9,15 @@ export default function EditForm(props: EditFormProps) {
   const renderEditForm = () => {
     switch (props.type) {
       case "stock":
-        return <CreateStock selectedRow={props.selectedRow} />;
+        return <CreateStock edit={true} selectedRow={props.selectedRow} />;
       case "client":
-        return <CreateClient selectedRow={props.selectedRow} />;
+        return <CreateClient edit={true} selectedRow={props.selectedRow} />;
       case "bill":
-        return <CreateBill selectedRow={props.selectedRow} />;
+        return <CreateBill edit={true} selectedRow={props.selectedRow} />;
       case "billDetail":
-        return <CreateBillDetail selectedRow={props.selectedRow} />;
+        return <CreateBillDetail edit={true} selectedRow={props.selectedRow} />;
       default:
-        return <CreateClient selectedRow={props.selectedRow} />;
+        return <CreateClient edit={true} selectedRow={props.selectedRow} />;
     }
   };
   return renderEditForm();

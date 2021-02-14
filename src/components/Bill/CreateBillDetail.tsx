@@ -1,4 +1,5 @@
 import React from "react";
+import { Input } from "@material-ui/core";
 
 export default function CreateBillDetail(props: any) {
   const [id, setId] = React.useState(
@@ -34,9 +35,9 @@ export default function CreateBillDetail(props: any) {
   return (
     <div className="create-container">
       <form>
-        <h2>Crear detalle de factura:</h2>
+        {!props.edit && <h2>Crear detalle de factura</h2>}
         <h4>ID</h4>
-        <input
+        <Input
           className="form-input"
           type="text"
           name="id"
@@ -45,7 +46,7 @@ export default function CreateBillDetail(props: any) {
           placeholder="ID"
         />
         <h4>Producto</h4>
-        <input
+        <Input
           className="form-input"
           type="text"
           name="producto"
@@ -54,7 +55,7 @@ export default function CreateBillDetail(props: any) {
           placeholder="Producto"
         />
         <h4>Precio total</h4>
-        <input
+        <Input
           className="form-input"
           type="text"
           name="totalPrice"
@@ -63,7 +64,7 @@ export default function CreateBillDetail(props: any) {
           placeholder="Precio total"
         />
         <h4>Cantidad</h4>
-        <input
+        <Input
           className="form-input"
           type="number"
           name="quantity"
@@ -72,7 +73,9 @@ export default function CreateBillDetail(props: any) {
           placeholder="Cantidad"
         />
       </form>
-      <button onClick={addBillDetail}>Crear</button>
+      <button className="create-button" onClick={addBillDetail}>
+        {props.edit ? "Editar" : "Crear"}
+      </button>
     </div>
   );
 }

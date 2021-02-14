@@ -1,4 +1,5 @@
 import React from "react";
+import { Input, Select, MenuItem } from "@material-ui/core";
 
 export default function CreateClient(props: any) {
   const [idType, setIdType] = React.useState(
@@ -40,20 +41,20 @@ export default function CreateClient(props: any) {
   return (
     <div className="create-container">
       <form>
-        <h2>Crear cliente:</h2>
+        {!props.edit && <h2>Crear cliente</h2>}
         <h4>Tipo de ID</h4>
-        <select
+        <Select
           className="form-input form-select"
           name="select"
           id="select2"
           value={idType}
           onChange={(e) => handleIdType(e)}
         >
-          <option value="0">CC</option>
-          <option value="1">NIT</option>
-        </select>
+          <MenuItem value="0">CC</MenuItem>
+          <MenuItem value="1">NIT</MenuItem>
+        </Select>
         <h4>ID</h4>
-        <input
+        <Input
           className="form-input"
           type="text"
           name="id"
@@ -62,7 +63,7 @@ export default function CreateClient(props: any) {
           placeholder="ID"
         />
         <h4>Nombre</h4>
-        <input
+        <Input
           className="form-input"
           type="text"
           name="name"
@@ -71,7 +72,7 @@ export default function CreateClient(props: any) {
           placeholder="Nombre"
         />
         <h4>Direccion</h4>
-        <input
+        <Input
           className="form-input"
           type="text"
           name="address"
@@ -80,7 +81,7 @@ export default function CreateClient(props: any) {
           placeholder="Direccion"
         />
         <h4>Telefono</h4>
-        <input
+        <Input
           className="form-input"
           type="number"
           name="phone"
@@ -89,7 +90,9 @@ export default function CreateClient(props: any) {
           placeholder="Telefono"
         />
       </form>
-      <button onClick={addClient}>Crear</button>
+      <button className="create-button" onClick={addClient}>
+        {props.edit ? "Editar" : "Crear"}
+      </button>
     </div>
   );
 }

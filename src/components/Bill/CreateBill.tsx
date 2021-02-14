@@ -1,4 +1,5 @@
 import React from "react";
+import { Input } from "@material-ui/core";
 
 export default function CreateBills(props: any) {
   const [id, setId] = React.useState(
@@ -40,9 +41,9 @@ export default function CreateBills(props: any) {
   return (
     <div className="create-container">
       <form>
-        <h2>Crear factura:</h2>
+        {!props.edit && <h2>Crear factura</h2>}
         <h4>ID</h4>
-        <input
+        <Input
           className="form-input"
           type="text"
           name="id"
@@ -51,7 +52,7 @@ export default function CreateBills(props: any) {
           placeholder="ID"
         />
         <h4>Fecha</h4>
-        <input
+        <Input
           className="form-input"
           type="text"
           name="date"
@@ -60,7 +61,7 @@ export default function CreateBills(props: any) {
           placeholder="Fecha"
         />
         <h4>Id de clientIDe</h4>
-        <input
+        <Input
           className="form-input"
           type="text"
           name="clientID"
@@ -69,7 +70,7 @@ export default function CreateBills(props: any) {
           placeholder="ClientIDe"
         />
         <h4>Id detalle de factura</h4>
-        <input
+        <Input
           className="form-input"
           type="text"
           name="detailID"
@@ -78,7 +79,7 @@ export default function CreateBills(props: any) {
           placeholder="Precio total"
         />
         <h4>Total</h4>
-        <input
+        <Input
           className="form-input"
           type="number"
           name="total"
@@ -87,7 +88,9 @@ export default function CreateBills(props: any) {
           placeholder="Total"
         />
       </form>
-      <button onClick={addBills}>Crear</button>
+      <button className="create-button" onClick={addBills}>
+        {props.edit ? "Editar" : "Crear"}
+      </button>
     </div>
   );
 }
