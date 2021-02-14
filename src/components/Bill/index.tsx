@@ -14,6 +14,7 @@ function Bill(props: any) {
 
   React.useEffect(() => {
     dispatch(BillsActions.fetchBills());
+    dispatch(BillsActions.fetchDetailBills());
   }, []);
   const [openModal, setOpenModal] = React.useState(false);
   const [openDetailModal, setOpenDetailModal] = React.useState(false);
@@ -118,6 +119,7 @@ function Bill(props: any) {
 
 const mapStateToProps = (state: any) => ({
   bills: state.bills,
+  detailBills: state.detailBills,
 });
 
 export default connect(mapStateToProps)(Bill);

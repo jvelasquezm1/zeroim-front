@@ -1,4 +1,4 @@
-import ClientsService from "src/services/clients.services";
+import * as ClientsService from "src/services/clients.services";
 
 export const clientsActions = {
   START_FETCH_CLIENTS: "[CLIENTS] Start fetching clients",

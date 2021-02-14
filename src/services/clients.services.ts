@@ -1,14 +1,11 @@
-class ClientsService {
-  static async readClients() {
-    try {
-      return new Promise((resolve, reject) => {setTimeout(() => {
-        console.log('GO')
-        resolve({"yeah":"TRUE"})
-      }, 100);});
-    } catch (err) {
-      console.log(err);
-    }
-  }
-}
+import { post, get } from "./api";
+import { IClients } from "src/types/clients.model";
 
-export default ClientsService;
+export const addClients = async (name: string, date: string, clientID: number, detailID: string, total: string): Promise<{data:object, status: number}> => {
+  const result = await post<IClients>("addClients", { name, date, clientID, detailID, total });
+  return result;
+};
+
+export const readClients = async (): Promise<IClients[]> => {
+    return (await get<IClients[]>("readClients")).data;
+};

@@ -26,3 +26,4 @@ const billsReducer = (state = initialState, action: any) => {
 };
 
 export default billsReducer;
+

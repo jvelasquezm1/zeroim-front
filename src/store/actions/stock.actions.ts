@@ -1,4 +1,4 @@
-import StockService from "src/services/stock.services";
+import * as StockService from "src/services/stock.services";
 
 export const stockActions = {
   START_FETCH_STOCK: "[STOCK] Start fetching stock",

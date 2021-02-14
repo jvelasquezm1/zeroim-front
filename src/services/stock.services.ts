@@ -1,14 +1,11 @@
-class StockService {
-  static async readStock() {
-    try {
-      return new Promise((resolve, reject) => {setTimeout(() => {
-        console.log('GO')
-        resolve({"yeah":"TRUE"})
-      }, 100);});
-    } catch (err) {
-      console.log(err);
-    }
-  }
-}
+import { post, get } from "./api";
+import { IStock } from "src/types/stock.model";
 
-export default StockService;
+export const addStock = async (name: string, date: string, clientID: number, detailID: string, total: string): Promise<{data:object, status: number}> => {
+  const result = await post<IStock>("addStock", { name, date, clientID, detailID, total });
+  return result;
+};
+
+export const readStock = async (): Promise<IStock[]> => {
+    return (await get<IStock[]>("readStock")).data;
+};
