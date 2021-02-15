@@ -1,11 +1,11 @@
 import { post, get } from "./api";
-import { IStock } from "src/types/stock.model";
+import { IProduct } from "src/types/stock.model";
 
-export const addStock = async (name: string, date: string, clientID: number, detailID: string, total: string): Promise<{data:object, status: number}> => {
-  const result = await post<IStock>("addStock", { name, date, clientID, detailID, total });
+export const addStock = async (id: string, name: string, price: number, sku: string): Promise<{data:object, status: number}> => {
+  const result = await post<IProduct>("product/new", { id, name, price, sku });
   return result;
 };
 
-export const readStock = async (): Promise<IStock[]> => {
-    return (await get<IStock[]>("readStock")).data;
+export const readStock = async (): Promise<IProduct[]> => {
+    return (await get<IProduct[]>("products")).data;
 };

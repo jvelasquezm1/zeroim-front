@@ -1,7 +1,6 @@
-export interface IStock {
+export interface IProduct {
+  id: string;
   name: string;
-  date: string;
-  clientID: string;
-  detailID: string;
-  total: string;
+  price: number;
+  sku: number;
 }

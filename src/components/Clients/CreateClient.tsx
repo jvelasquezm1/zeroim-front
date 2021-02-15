@@ -2,6 +2,7 @@ import React from "react";
 import { Input, Select, MenuItem } from "@material-ui/core";
 import { addClients } from "src/services/clients.services";
 import { constants } from "./config";
+import SuccessAlert from "src/containers/Modals/SuccessAlert";
 
 export default function CreateClient(props: any) {
   const [idType, setIdType] = React.useState(
@@ -19,7 +20,11 @@ export default function CreateClient(props: any) {
   const [address, setAddress] = React.useState(
     props.selectedRow ? props.selectedRow.address : ""
   );
+  const [openModal, setOpenModal] = React.useState(false);
 
+  const handleClose = () => {
+    setOpenModal(false);
+  };
   const handleIdType = (event: any) => {
     setIdType(event.target.value);
   };
@@ -38,6 +43,7 @@ export default function CreateClient(props: any) {
 
   const addClient = () => {
     addClients(id, idType, name, address, phone);
+    setOpenModal(true);
   };
 
   return (
@@ -92,6 +98,7 @@ export default function CreateClient(props: any) {
           placeholder="Telefono"
         />
       </form>
+      <SuccessAlert openModal={openModal} handleClose={handleClose} />
       <button className="create-button" onClick={addClient}>
         {props.edit ? "Editar" : "Crear"}
       </button>

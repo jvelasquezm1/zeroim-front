@@ -1,5 +1,7 @@
 import React from "react";
 import { Input } from "@material-ui/core";
+import SuccessAlert from "src/containers/Modals/SuccessAlert";
+import { addStock } from "src/services/stock.services";
 
 export default function CreateStock(props: any) {
   const [id, setId] = React.useState(
@@ -14,6 +16,11 @@ export default function CreateStock(props: any) {
   const [price, setPrice] = React.useState(
     props.selectedRow ? props.selectedRow.price : ""
   );
+  const [openModal, setOpenModal] = React.useState(false);
+
+  const handleClose = () => {
+    setOpenModal(false);
+  };
 
   const handleId = (event: any) => {
     setId(event.target.value);
@@ -28,8 +35,9 @@ export default function CreateStock(props: any) {
     setPrice(event.target.value);
   };
 
-  const addStock = () => {
-    console.log(id, product, quantity);
+  const addStock_ = () => {
+    addStock(id, product, price, quantity);
+    setOpenModal(true);
   };
 
   return (
@@ -73,7 +81,8 @@ export default function CreateStock(props: any) {
           placeholder="Precio"
         />
       </form>
-      <button className="create-button" onClick={addStock}>
+      <SuccessAlert openModal={openModal} handleClose={handleClose} />
+      <button className="create-button" onClick={addStock_}>
         {props.edit ? "Editar" : "Crear"}
       </button>
     </div>

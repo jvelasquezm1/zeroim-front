@@ -1,5 +1,6 @@
 import React from "react";
 import { Input } from "@material-ui/core";
+import SuccessAlert from "src/containers/Modals/SuccessAlert";
 
 export default function CreateBills(props: any) {
   const [id, setId] = React.useState(
@@ -17,6 +18,11 @@ export default function CreateBills(props: any) {
   const [detailID, setDetailID] = React.useState(
     props.selectedRow ? props.selectedRow.detailID : ""
   );
+  const [openModal, setOpenModal] = React.useState(false);
+
+  const handleClose = () => {
+    setOpenModal(false);
+  };
 
   const handleId = (event: any) => {
     setId(event.target.value);
@@ -88,6 +94,7 @@ export default function CreateBills(props: any) {
           placeholder="Total"
         />
       </form>
+      <SuccessAlert openModal={openModal} handleClose={handleClose} />
       <button className="create-button" onClick={addBills}>
         {props.edit ? "Editar" : "Crear"}
       </button>
