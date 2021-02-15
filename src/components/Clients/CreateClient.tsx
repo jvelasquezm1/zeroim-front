@@ -1,9 +1,11 @@
 import React from "react";
 import { Input, Select, MenuItem } from "@material-ui/core";
+import { addClients } from "src/services/clients.services";
+import { constants } from "./config";
 
 export default function CreateClient(props: any) {
   const [idType, setIdType] = React.useState(
-    props.selectedRow ? props.selectedRow.idType : "0"
+    props.selectedRow ? props.selectedRow.idType : constants.CC
   );
   const [id, setId] = React.useState(
     props.selectedRow ? props.selectedRow.id : ""
@@ -35,7 +37,7 @@ export default function CreateClient(props: any) {
   };
 
   const addClient = () => {
-    console.log(idType, id, name, phone, address);
+    addClients(id, idType, name, address, phone);
   };
 
   return (
@@ -50,10 +52,10 @@ export default function CreateClient(props: any) {
           value={idType}
           onChange={(e) => handleIdType(e)}
         >
-          <MenuItem value="0">CC</MenuItem>
-          <MenuItem value="1">NIT</MenuItem>
+          <MenuItem value={constants.CC}>{constants.CC}</MenuItem>
+          <MenuItem value={constants.NIT}>{constants.NIT}</MenuItem>
         </Select>
-        <h4>ID</h4>
+        <h4>ID Number</h4>
         <Input
           className="form-input"
           type="text"

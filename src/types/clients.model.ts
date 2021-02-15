@@ -1,7 +1,7 @@
 export interface IClients {
+  idNumber: string;
+  idType: string;
   name: string;
-  date: string;
-  clientID: string;
-  detailID: string;
-  total: string;
+  address: string;
+  phone: string;
 }

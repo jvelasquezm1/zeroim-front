@@ -80,3 +80,8 @@ export const mockedRows = [
     firstName: "Harvey",
   },
 ];
+
+export const constants = {
+  CC: "CC",
+  NIT: "NIT",
+};

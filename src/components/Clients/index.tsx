@@ -27,10 +27,9 @@ function Client(props: any) {
     setOpenModal(true);
   };
   const columns: ColDef[] = [
-    { field: "idType", headerName: "Tipo", width: 95 },
-    { field: "id", headerName: "ID", width: 185 },
-    { field: "firstName", headerName: "Nombre", width: 185 },
-    { field: "lastName", headerName: "Apellido", width: 185 },
+    { field: "idType", headerName: "Tipo de Id", width: 95 },
+    { field: "idNumber", headerName: "Numero", width: 185 },
+    { field: "name", headerName: "Nombre", width: 185 },
     { field: "address", headerName: "Direccion", width: 185 },
     { field: "phone", headerName: "Telefono", width: 185 },
     {
@@ -55,7 +54,7 @@ function Client(props: any) {
         <h2>Clientes</h2>
         <Link to="/clientes/crear">Agregar Cliente</Link>
       </div>
-      <Table rows={mockedRows} columns={columns} pageSize={10} />
+      <Table rows={props.clients.clients} columns={columns} pageSize={10} />
       <Modals
         openModal={openModal}
         handleClose={handleClose}
