@@ -1,6 +1,7 @@
 import React from "react";
 import { Input } from "@material-ui/core";
 import SuccessAlert from "src/containers/Modals/SuccessAlert";
+import { addDetailBills } from "src/services/bills.services";
 
 export default function CreateBillDetail(props: any) {
   const [id, setId] = React.useState(
@@ -33,9 +34,9 @@ export default function CreateBillDetail(props: any) {
   const handleTotalPrice = (event: any) => {
     setTotalPrice(event.target.value);
   };
-
   const addBillDetail = () => {
-    console.log(id, producto, quantity, totalPrice);
+    addDetailBills(id, producto, quantity, totalPrice);
+    // setOpenModal(true);
   };
 
   return (

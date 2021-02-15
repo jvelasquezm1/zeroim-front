@@ -2,14 +2,14 @@ import { post, get } from "./api";
 import { IBills, IDetailBills } from "src/types/bills.model";
 
 export const addBills = async (
-  name: string,
+  id: string,
   date: Date,
   clientId: number,
   billDetail: string[],
   total: string
 ): Promise<{ data: object; status: number }> => {
   const result = await post<IBills>("bill", {
-    name,
+    id,
     date,
     clientId,
     billDetail,
@@ -27,14 +27,12 @@ export const addDetailBills = async (
   productId: string,
   quantity: string,
   value: number,
-  billNumber: string
 ): Promise<{ data: object; status: number }> => {
   const result = await post<IDetailBills>("billDetail", {
     id,
     productId,
     quantity,
     value,
-    billNumber
   });
   return result;
 };

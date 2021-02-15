@@ -17,9 +17,7 @@ import "./App.scss";
 import CreateClient from "../Clients/CreateClient";
 import CreateStock from "../Stock/CreateStock";
 import CreateBills from "../Bill/CreateBill";
-import CreateBillDetail from "../Bill/CreateBillDetail";
 import Home from "../Home";
-import BillDetail from "../Bill/BillDetail";
 
 const App: React.FC = () => {
   return (
@@ -33,12 +31,6 @@ const App: React.FC = () => {
           <Route path="/inventario/crear" exact component={CreateStock} />
           <Route path="/facturas" exact component={Bill} />
           <Route path="/facturas/crear" exact component={CreateBills} />
-          <Route path="/facturas/detalle" exact component={BillDetail} />
-          <Route
-            path="/facturas/crear/detalle"
-            exact
-            component={CreateBillDetail}
-          />
           <Route path="/" exact component={Home} />
           <Redirect to="/" />
         </Switch>

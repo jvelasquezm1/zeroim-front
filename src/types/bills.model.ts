@@ -11,5 +11,4 @@ export interface IDetailBills {
   productId: string;
   quantity: string;
   value: number;
-  billNumber: string;
 }

@@ -1,13 +1,21 @@
+import "date-fns";
 import React from "react";
-import { Input } from "@material-ui/core";
+import { Input, TextField } from "@material-ui/core";
 import SuccessAlert from "src/containers/Modals/SuccessAlert";
+import { addBills } from "src/services/bills.services";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import { Autocomplete } from "@material-ui/lab";
 
 export default function CreateBills(props: any) {
   const [id, setId] = React.useState(
     props.selectedRow ? props.selectedRow.id : ""
   );
   const [date, setDate] = React.useState(
-    props.selectedRow ? props.selectedRow.date : ""
+    props.selectedRow ? props.selectedRow.date : new Date()
   );
   const [clientId, setclientId] = React.useState(
     props.selectedRow ? props.selectedRow.clientId : ""
@@ -15,8 +23,8 @@ export default function CreateBills(props: any) {
   const [total, setTotal] = React.useState(
     props.selectedRow ? props.selectedRow.total : ""
   );
-  const [detailID, setDetailID] = React.useState(
-    props.selectedRow ? props.selectedRow.detailID : ""
+  const [billDetail, setDetailID] = React.useState(
+    props.selectedRow ? props.selectedRow.billDetail : ""
   );
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -27,8 +35,8 @@ export default function CreateBills(props: any) {
   const handleId = (event: any) => {
     setId(event.target.value);
   };
-  const handleDate = (event: any) => {
-    setDate(event.target.value);
+  const handleDate = (date: Date | null) => {
+    setDate(date);
   };
   const handleclientId = (event: any) => {
     setclientId(event.target.value);
@@ -40,8 +48,9 @@ export default function CreateBills(props: any) {
     setDetailID(event.target.value);
   };
 
-  const addBills = () => {
-    console.log(id, date, clientId, total, detailID);
+  const addBills_ = () => {
+    addBills(id, date.getTime(), clientId, billDetail, total);
+    // setOpenModal(true);
   };
 
   return (
@@ -58,29 +67,33 @@ export default function CreateBills(props: any) {
           placeholder="ID"
         />
         <h4>Fecha</h4>
-        <Input
-          className="form-input"
-          type="text"
-          name="date"
-          defaultValue={date}
-          onChange={(e) => handleDate(e)}
-          placeholder="Fecha"
-        />
-        <h4>Id de clientIde</h4>
-        <Input
-          className="form-input"
-          type="text"
-          name="clientId"
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            format="MM/dd/yyyy"
+            id="date-picker-inline"
+            value={date}
+            onChange={handleDate}
+          />
+        </MuiPickersUtilsProvider>
+        <h4>Cliente</h4>
+        <Autocomplete
+          id="clientId"
+          options={[
+            { title: "The Godfather", year: 1972 },
+            { title: "Cliente", year: 1972 },
+          ]}
           defaultValue={clientId}
           onChange={(e) => handleclientId(e)}
-          placeholder="clientIde"
+          getOptionLabel={(option: any) => option.title}
+          style={{ width: 300 }}
+          renderInput={(params: any) => <TextField {...params} />}
         />
         <h4>Id detalle de factura</h4>
         <Input
           className="form-input"
           type="text"
-          name="detailID"
-          defaultValue={detailID}
+          name="billDetail"
+          defaultValue={billDetail}
           onChange={(e) => handleDetailID(e)}
           placeholder="Precio total"
         />
@@ -95,7 +108,7 @@ export default function CreateBills(props: any) {
         />
       </form>
       <SuccessAlert openModal={openModal} handleClose={handleClose} />
-      <button className="create-button" onClick={addBills}>
+      <button className="create-button" onClick={addBills_}>
         {props.edit ? "Editar" : "Crear"}
       </button>
     </div>
