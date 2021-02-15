@@ -9,8 +9,8 @@ export default function CreateBills(props: any) {
   const [date, setDate] = React.useState(
     props.selectedRow ? props.selectedRow.date : ""
   );
-  const [clientID, setClientID] = React.useState(
-    props.selectedRow ? props.selectedRow.clientID : ""
+  const [clientId, setclientId] = React.useState(
+    props.selectedRow ? props.selectedRow.clientId : ""
   );
   const [total, setTotal] = React.useState(
     props.selectedRow ? props.selectedRow.total : ""
@@ -30,8 +30,8 @@ export default function CreateBills(props: any) {
   const handleDate = (event: any) => {
     setDate(event.target.value);
   };
-  const handleClientID = (event: any) => {
-    setClientID(event.target.value);
+  const handleclientId = (event: any) => {
+    setclientId(event.target.value);
   };
   const handleTotal = (event: any) => {
     setTotal(event.target.value);
@@ -41,7 +41,7 @@ export default function CreateBills(props: any) {
   };
 
   const addBills = () => {
-    console.log(id, date, clientID, total, detailID);
+    console.log(id, date, clientId, total, detailID);
   };
 
   return (
@@ -66,14 +66,14 @@ export default function CreateBills(props: any) {
           onChange={(e) => handleDate(e)}
           placeholder="Fecha"
         />
-        <h4>Id de clientIDe</h4>
+        <h4>Id de clientIde</h4>
         <Input
           className="form-input"
           type="text"
-          name="clientID"
-          defaultValue={clientID}
-          onChange={(e) => handleClientID(e)}
-          placeholder="ClientIDe"
+          name="clientId"
+          defaultValue={clientId}
+          onChange={(e) => handleclientId(e)}
+          placeholder="clientIde"
         />
         <h4>Id detalle de factura</h4>
         <Input

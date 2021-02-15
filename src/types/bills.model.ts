@@ -1,15 +1,15 @@
 export interface IBills {
-  name: string;
-  date: string;
-  clientID: string;
-  detailID: string;
-  total: string;
+  id: string;
+  date: Date;
+  clientId: string;
+  billDetail: string[];
+  total: number;
 }
 
 export interface IDetailBills {
-  name: string;
-  date: string;
-  clientID: string;
-  detailID: string;
-  total: string;
+  id: string;
+  productId: string;
+  quantity: string;
+  value: number;
+  billNumber: string;
 }

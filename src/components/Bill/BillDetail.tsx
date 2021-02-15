@@ -9,20 +9,14 @@ import { Link } from "react-router-dom";
 import Modals from "src/containers/Modals";
 import Actions from "src/containers/Actions";
 
-function Bill(props: any) {
+function BillDetail(props: any) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(BillsActions.fetchBills());
     dispatch(BillsActions.fetchDetailBills());
   }, []);
   const [openModal, setOpenModal] = React.useState(false);
-  const [openDetailModal, setOpenDetailModal] = React.useState(false);
   const [selectedRow, setSelectedRow] = React.useState({
-    edit: false,
-    delete: false,
-  });
-  const [selectedDetailRow, setSelectedDetailRow] = React.useState({
     edit: false,
     delete: false,
   });
@@ -32,47 +26,10 @@ function Bill(props: any) {
   const handleOpen = () => {
     setOpenModal(true);
   };
-  const handleDetailClose = () => {
-    setOpenDetailModal(false);
-  };
-  const handleDetailOpen = (params: any) => {
-    setSelectedDetailRow(Object.assign(params, { edit: true, delete: false }));
-    setOpenDetailModal(true);
-  };
-  const mockBillDetails = [
-    {
-      id: 9,
-      producto: "23/12/2020",
-      quantity: "31243214",
-      totalPrice: "31243214",
-    },
-    {
-      id: 8,
-      producto: "23/12/2020",
-      quantity: "31243214",
-      totalPrice: "31243214",
-    },
-  ];
   const columns: ColDef[] = [
     { field: "id", headerName: "ID", width: 100 },
     { field: "date", headerName: "Fecha", width: 220 },
     { field: "clientId", headerName: "ID Cliente", width: 220 },
-    {
-      field: "billDetail",
-      headerName: "Detalles",
-      width: 220,
-      renderCell: (params: CellParams) => {
-        return (
-          <div key={params.row.id}>
-            {mockBillDetails.map((detail) => (
-              <button key={detail.id} onClick={() => handleDetailOpen(detail)}>
-                {detail.id}
-              </button>
-            ))}
-          </div>
-        );
-      },
-    },
     { field: "total", headerName: "TOTAL", width: 220 },
     {
       field: "",
@@ -94,23 +51,20 @@ function Bill(props: any) {
   return (
     <div className="table-container">
       <div className="flex-container space-between">
-        <h2>Facturas</h2>
+        <h2>Facturas Detalle</h2>
         <div className="flex-container add-button">
-          <Link to="/facturas/crear">Agregar Factura</Link>
           <Link to="/facturas/crear/detalle">Agregar Detalle</Link>
         </div>
       </div>
-      <Table rows={props.bills.bills} columns={columns} pageSize={10} />
+      <Table
+        rows={props.detailBills.detailBills}
+        columns={columns}
+        pageSize={10}
+      />
       <Modals
         openModal={openModal}
         handleClose={handleClose}
         selectedRow={selectedRow}
-        type="bill"
-      />
-      <Modals
-        openModal={openDetailModal}
-        handleClose={handleDetailClose}
-        selectedRow={selectedDetailRow}
         type="billDetail"
       />
     </div>
@@ -118,8 +72,7 @@ function Bill(props: any) {
 }
 
 const mapStateToProps = (state: any) => ({
-  bills: state.bills,
   detailBills: state.detailBills,
 });
 
-export default connect(mapStateToProps)(Bill);
+export default connect(mapStateToProps)(BillDetail);
