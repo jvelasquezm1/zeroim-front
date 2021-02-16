@@ -1,21 +1,29 @@
 import * as React from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 
 import Table from "src/containers/Table";
 import * as ClientsActions from "src/store/actions/clients.actions";
-import { mockedRows } from "./config";
 import { ColDef, CellParams } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
 import Modals from "src/containers/Modals";
 import Actions from "src/containers/Actions";
+import { TextField } from "@material-ui/core";
+import isEmpty from "lodash/isEmpty";
+import { filterByValue } from "src/utils";
+import { noResults, noResultsColumns } from "src/utils/constants";
 
 function Client(props: any) {
   const dispatch = useDispatch();
+  const clientsProps = useSelector((state: any) => state.clients.clients);
 
   React.useEffect(() => {
     dispatch(ClientsActions.fetchClients());
+    if (props.clients.clients) {
+      setClients(props.clients.clients);
+    }
   }, []);
   const [openModal, setOpenModal] = React.useState(false);
+  const [clients, setClients] = React.useState(props.clients.clients);
   const [selectedRow, setSelectedRow] = React.useState({
     edit: false,
     delete: false,
@@ -54,7 +62,73 @@ function Client(props: any) {
         <h2>Clientes</h2>
         <Link to="/clientes/crear">Agregar Cliente</Link>
       </div>
-      <Table rows={props.clients.clients} columns={columns} pageSize={10} />
+      <div className="flex-container space-between filter-container">
+        <TextField
+          id="id"
+          label="Tipo de ID"
+          onChange={(e) => {
+            const filteredValue = filterByValue(
+              props.clients.clients,
+              "idType",
+              e.target.value
+            ) as any;
+            setClients(filteredValue);
+          }}
+        />
+        <TextField
+          id="number"
+          label="Numero"
+          onChange={(e) => {
+            const filteredValue = filterByValue(
+              props.clients.clients,
+              "idNumber",
+              e.target.value
+            ) as any;
+            setClients(filteredValue);
+          }}
+        />
+        <TextField
+          id="name"
+          label="Nombre"
+          onChange={(e) => {
+            const filteredValue = filterByValue(
+              props.clients.clients,
+              "name",
+              e.target.value
+            ) as any;
+            setClients(filteredValue);
+          }}
+        />
+        <TextField
+          id="address"
+          label="Direccion"
+          onChange={(e) => {
+            const filteredValue = filterByValue(
+              props.clients.clients,
+              "address",
+              e.target.value
+            ) as any;
+            setClients(filteredValue);
+          }}
+        />
+        <TextField
+          id="phone"
+          label="Telefono"
+          onChange={(e) => {
+            const filteredValue = filterByValue(
+              props.clients.clients,
+              "phone",
+              e.target.value
+            ) as any;
+            setClients(filteredValue);
+          }}
+        />
+      </div>
+      <Table
+        rows={isEmpty(clients) ? clientsProps : clients}
+        columns={clients === noResults ? noResultsColumns : columns}
+        pageSize={10}
+      />
       <Modals
         openModal={openModal}
         handleClose={handleClose}

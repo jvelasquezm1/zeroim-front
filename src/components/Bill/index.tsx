@@ -1,16 +1,20 @@
 import * as React from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 
 import Table from "src/containers/Table";
 import * as BillsActions from "src/store/actions/bills.actions";
-import { mockedRows } from "./config";
 import { ColDef, CellParams } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
 import Modals from "src/containers/Modals";
 import Actions from "src/containers/Actions";
+import isEmpty from "lodash/isEmpty";
+import { TextField } from "@material-ui/core";
+import { filterByValue } from "src/utils";
+import { noResults, noResultsColumns } from "src/utils/constants";
 
 function Bill(props: any) {
   const dispatch = useDispatch();
+  const billsProps = useSelector((state: any) => state.bills.bills);
 
   React.useEffect(() => {
     dispatch(BillsActions.fetchBills());
@@ -18,6 +22,7 @@ function Bill(props: any) {
   }, []);
   const [openModal, setOpenModal] = React.useState(false);
   const [openDetailModal, setOpenDetailModal] = React.useState(false);
+  const [bills, setBills] = React.useState(props.bills.bills);
   const [selectedRow, setSelectedRow] = React.useState({
     edit: false,
     delete: false,
@@ -97,10 +102,75 @@ function Bill(props: any) {
         <h2>Facturas</h2>
         <div className="flex-container add-button">
           <Link to="/facturas/crear">Agregar Factura</Link>
-          <Link to="/facturas/crear/detalle">Agregar Detalle</Link>
         </div>
       </div>
-      <Table rows={props.bills.bills} columns={columns} pageSize={10} />
+      <div className="flex-container space-between filter-container">
+        <TextField
+          id="id"
+          label="ID"
+          onChange={(e) => {
+            const filteredValue = filterByValue(
+              props.bills.bills,
+              "id",
+              e.target.value
+            ) as any;
+            setBills(filteredValue);
+          }}
+        />
+        <TextField
+          id="date"
+          label="Fecha"
+          onChange={(e) => {
+            const filteredValue = filterByValue(
+              props.bills.bills,
+              "date",
+              e.target.value
+            ) as any;
+            setBills(filteredValue);
+          }}
+        />
+        <TextField
+          id="clientId"
+          label="Cliente"
+          onChange={(e) => {
+            const filteredValue = filterByValue(
+              props.bills.bills,
+              "clientId",
+              e.target.value
+            ) as any;
+            setBills(filteredValue);
+          }}
+        />
+        <TextField
+          id="billDetail"
+          label="Detalle"
+          onChange={(e) => {
+            const filteredValue = filterByValue(
+              props.bills.bills,
+              "billDetail",
+              e.target.value
+            ) as any;
+            setBills(filteredValue);
+          }}
+        />
+        <TextField
+          id="total"
+          label="Total"
+          onChange={(e) => {
+            const filteredValue = filterByValue(
+              props.bills.bills,
+              "total",
+              e.target.value
+            ) as any;
+            setBills(filteredValue);
+          }}
+        />
+      </div>
+      <Table
+        rows={isEmpty(bills) ? billsProps : bills}
+        columns={bills === noResults ? noResultsColumns : columns}
+        pageSize={10}
+      />
       <Modals
         openModal={openModal}
         handleClose={handleClose}
