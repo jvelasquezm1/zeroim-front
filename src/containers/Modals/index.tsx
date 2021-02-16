@@ -19,11 +19,16 @@ export default function Modals(props: ModalsProps) {
       fullWidth
     >
       <DialogTitle id="form-dialog-title">
-        {props.selectedRow.edit ? "Editar" : "Borrar"}
+        {props.selectedRow.edit ? (props.billDetail ? "Crear" : "Editar") : "Borrar"}
       </DialogTitle>
       <DialogContent>
         {props.selectedRow.edit ? (
-          <EditForm selectedRow={props.selectedRow} type={props.type} />
+          <EditForm
+            billDetail={props.billDetail}
+            setDetailID={props.setDetailID}
+            selectedRow={props.selectedRow}
+            type={props.type}
+          />
         ) : (
           <DeleteAlert selectedRow={props.selectedRow} />
         )}

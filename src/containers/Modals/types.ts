@@ -3,4 +3,6 @@ export interface ModalsProps {
   handleClose: () => void;
   selectedRow: any;
   type: string;
+  setDetailID?: any
+  billDetail?: any;
 }

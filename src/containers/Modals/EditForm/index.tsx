@@ -15,7 +15,14 @@ export default function EditForm(props: EditFormProps) {
       case "bill":
         return <CreateBill edit={true} selectedRow={props.selectedRow} />;
       case "billDetail":
-        return <CreateBillDetail edit={true} selectedRow={props.selectedRow} />;
+        return (
+          <CreateBillDetail
+            setDetailID={props.setDetailID}
+            billDetail={props.billDetail}
+            edit={true}
+            selectedRow={props.selectedRow}
+          />
+        );
       default:
         return <CreateClient edit={true} selectedRow={props.selectedRow} />;
     }

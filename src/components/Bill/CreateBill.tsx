@@ -1,6 +1,17 @@
 import "date-fns";
 import React from "react";
-import { Input, TextField } from "@material-ui/core";
+import {
+  Input,
+  TextField,
+  Collapse,
+  Box,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Button,
+} from "@material-ui/core";
 import SuccessAlert from "src/containers/Modals/SuccessAlert";
 import { addBills } from "src/services/bills.services";
 import DateFnsUtils from "@date-io/date-fns";
@@ -9,8 +20,20 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import { Autocomplete } from "@material-ui/lab";
+import Modals from "src/containers/Modals";
+import { connect, useSelector, useDispatch } from "react-redux";
+import isEmpty from "lodash/isEmpty";
+import * as clientsActions from "src/store/actions/clients.actions";
 
-export default function CreateBills(props: any) {
+function CreateBills(props: any) {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(clientsActions.fetchClients());
+    if (props.clients.clients) {
+      setClients(props.clients.clients);
+    }
+  }, []);
+  const clientsProps = useSelector((state: any) => state.clients.clients);
   const [id, setId] = React.useState(
     props.selectedRow ? props.selectedRow.id : ""
   );
@@ -24,12 +47,17 @@ export default function CreateBills(props: any) {
     props.selectedRow ? props.selectedRow.total : ""
   );
   const [billDetail, setDetailID] = React.useState(
-    props.selectedRow ? props.selectedRow.billDetail : ""
+    props.selectedRow ? props.selectedRow.billDetail : []
   );
   const [openModal, setOpenModal] = React.useState(false);
+  const [openDetailModal, setOpenDetailModal] = React.useState(false);
+  const [clients, setClients] = React.useState(props.clients.clients);
 
   const handleClose = () => {
     setOpenModal(false);
+  };
+  const handleDetailClose = () => {
+    setOpenDetailModal(false);
   };
 
   const handleId = (event: any) => {
@@ -38,14 +66,11 @@ export default function CreateBills(props: any) {
   const handleDate = (date: Date | null) => {
     setDate(date);
   };
-  const handleclientId = (event: any) => {
-    setclientId(event.target.value);
+  const handleclientId = (client: any) => {
+    setclientId(client ? client.id : "");
   };
   const handleTotal = (event: any) => {
     setTotal(event.target.value);
-  };
-  const handleDetailID = (event: any) => {
-    setDetailID(event.target.value);
   };
 
   const addBills_ = () => {
@@ -78,25 +103,52 @@ export default function CreateBills(props: any) {
         <h4>Cliente</h4>
         <Autocomplete
           id="clientId"
-          options={[
-            { title: "The Godfather", year: 1972 },
-            { title: "Cliente", year: 1972 },
-          ]}
+          options={isEmpty(clients) ? clientsProps : clients}
+          getOptionLabel={(option) => option.name || ""}
           defaultValue={clientId}
-          onChange={(e) => handleclientId(e)}
-          getOptionLabel={(option: any) => option.title}
+          onChange={(event: any, newValue: string | null) => {
+            handleclientId(newValue);
+          }}
           style={{ width: 300 }}
           renderInput={(params: any) => <TextField {...params} />}
         />
         <h4>Id detalle de factura</h4>
-        <Input
-          className="form-input"
-          type="text"
-          name="billDetail"
-          defaultValue={billDetail}
-          onChange={(e) => handleDetailID(e)}
-          placeholder="Precio total"
-        />
+        <Collapse in={true} timeout="auto" unmountOnExit>
+          <Box>
+            <Table size="small" aria-label="purchases">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Producto</TableCell>
+                  <TableCell>Cantidad</TableCell>
+                  <TableCell>Precio unitario</TableCell>
+                  <TableCell align="right">
+                    <Button
+                      onClick={() => setOpenDetailModal(true)}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Nuevo
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {billDetail.map((detail: any) => {
+                  return (
+                    <TableRow key={detail.id}>
+                      <TableCell component="th" scope="row">
+                        {detail.productId}
+                      </TableCell>
+                      <TableCell>{detail.quantity}</TableCell>
+                      <TableCell>{detail.unitValue}</TableCell>
+                      <TableCell>{detail.totalValue}</TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </Box>
+        </Collapse>
         <h4>Total</h4>
         <Input
           className="form-input"
@@ -107,6 +159,14 @@ export default function CreateBills(props: any) {
           placeholder="Total"
         />
       </form>
+      <Modals
+        openModal={openDetailModal}
+        handleClose={handleDetailClose}
+        selectedRow={{ edit: true }}
+        type="billDetail"
+        setDetailID={setDetailID}
+        billDetail={billDetail}
+      />
       <SuccessAlert openModal={openModal} handleClose={handleClose} />
       <button className="create-button" onClick={addBills_}>
         {props.edit ? "Editar" : "Crear"}
@@ -114,3 +174,9 @@ export default function CreateBills(props: any) {
     </div>
   );
 }
+
+const mapStateToProps = (state: any) => ({
+  clients: state.clients,
+});
+
+export default connect(mapStateToProps)(CreateBills);

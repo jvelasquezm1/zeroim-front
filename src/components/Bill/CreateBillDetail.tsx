@@ -1,20 +1,19 @@
 import React from "react";
 import { Input } from "@material-ui/core";
 import SuccessAlert from "src/containers/Modals/SuccessAlert";
-import { addDetailBills } from "src/services/bills.services";
 
 export default function CreateBillDetail(props: any) {
-  const [id, setId] = React.useState(
-    props.selectedRow ? props.selectedRow.id : ""
+  const [unitValue, setUnitValue] = React.useState(
+    props.selectedRow ? props.selectedRow.unitValue : 0
   );
-  const [producto, setProducto] = React.useState(
-    props.selectedRow ? props.selectedRow.producto : ""
+  const [productId, setProductId] = React.useState(
+    props.selectedRow ? props.selectedRow.productId : ""
   );
   const [quantity, setQuantity] = React.useState(
-    props.selectedRow ? props.selectedRow.quantity : ""
+    props.selectedRow ? props.selectedRow.quantity : 0
   );
-  const [totalPrice, setTotalPrice] = React.useState(
-    props.selectedRow ? props.selectedRow.totalPrice : ""
+  const [totalValue, setTotalValue] = React.useState(
+    props.selectedRow ? props.selectedRow.totalValue : 0
   );
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -22,53 +21,44 @@ export default function CreateBillDetail(props: any) {
     setOpenModal(false);
   };
 
-  const handleId = (event: any) => {
-    setId(event.target.value);
+  const handleUnitValue = (event: any) => {
+    setUnitValue(event.target.value);
   };
-  const handleProducto = (event: any) => {
-    setProducto(event.target.value);
+  const handleProductId = (event: any) => {
+    setProductId(event.target.value);
+    setTotalValue(event.target.value * quantity);
   };
   const handleQuantity = (event: any) => {
     setQuantity(event.target.value);
-  };
-  const handleTotalPrice = (event: any) => {
-    setTotalPrice(event.target.value);
+    setTotalValue(unitValue * event.target.value);
   };
   const addBillDetail = () => {
-    addDetailBills(id, producto, quantity, totalPrice);
+    const newBillDetail = { productId, quantity, unitValue, totalValue };
+    props.setDetailID(props.billDetail.concat(newBillDetail));
     // setOpenModal(true);
   };
 
   return (
     <div className="create-container">
       <form>
-        {!props.edit && <h2>Crear detalle de factura</h2>}
-        <h4>ID</h4>
-        <Input
-          className="form-input"
-          type="text"
-          name="id"
-          defaultValue={id}
-          onChange={(e) => handleId(e)}
-          placeholder="ID"
-        />
+        {(!props.edit || props.billDetail) && <h2>Crear detalle de factura</h2>}
         <h4>Producto</h4>
         <Input
           className="form-input"
           type="text"
-          name="producto"
-          defaultValue={producto}
-          onChange={(e) => handleProducto(e)}
+          name="productId"
+          defaultValue={productId}
+          onChange={(e) => handleProductId(e)}
           placeholder="Producto"
         />
-        <h4>Precio total</h4>
+        <h4>Precio unitario</h4>
         <Input
           className="form-input"
           type="text"
-          name="totalPrice"
-          defaultValue={totalPrice}
-          onChange={(e) => handleTotalPrice(e)}
-          placeholder="Precio total"
+          name="unitValue"
+          defaultValue={unitValue}
+          onChange={(e) => handleUnitValue(e)}
+          placeholder="Precio unitario"
         />
         <h4>Cantidad</h4>
         <Input
@@ -79,10 +69,12 @@ export default function CreateBillDetail(props: any) {
           onChange={(e) => handleQuantity(e)}
           placeholder="Cantidad"
         />
+        <h4>Precio total</h4>
+        <p>${totalValue}</p>
       </form>
       <SuccessAlert openModal={openModal} handleClose={handleClose} />
       <button className="create-button" onClick={addBillDetail}>
-        {props.edit ? "Editar" : "Crear"}
+        {props.edit && !props.billDetail ? "Editar" : "Crear"}
       </button>
     </div>
   );
