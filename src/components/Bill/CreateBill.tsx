@@ -21,18 +21,10 @@ import {
 } from "@material-ui/pickers";
 import { Autocomplete } from "@material-ui/lab";
 import Modals from "src/containers/Modals";
-import { connect, useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import isEmpty from "lodash/isEmpty";
-import * as clientsActions from "src/store/actions/clients.actions";
 
-function CreateBills(props: any) {
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(clientsActions.fetchClients());
-    if (props.clients.clients) {
-      setClients(props.clients.clients);
-    }
-  }, []);
+export default function CreateBills(props: any) {
   const clientsProps = useSelector((state: any) => state.clients.clients);
   const [id, setId] = React.useState(
     props.selectedRow ? props.selectedRow.id : ""
@@ -52,7 +44,6 @@ function CreateBills(props: any) {
   );
   const [openModal, setOpenModal] = React.useState(false);
   const [openDetailModal, setOpenDetailModal] = React.useState(false);
-  const [clients, setClients] = React.useState([]);
 
   React.useEffect(() => {
     billDetail.map((bill: any) => setTotal(total + bill.totalValue));
@@ -105,7 +96,7 @@ function CreateBills(props: any) {
         <h4>Cliente</h4>
         <Autocomplete
           id="clientId"
-          options={isEmpty(clients) ? clientsProps : clients}
+          options={clientsProps}
           getOptionLabel={(option) => option.name || ""}
           defaultValue={clientId}
           onChange={(event: any, newValue: string | null) => {
@@ -170,9 +161,3 @@ function CreateBills(props: any) {
     </div>
   );
 }
-
-const mapStateToProps = (state: any) => ({
-  clients: state.clients,
-});
-
-export default connect(mapStateToProps)(CreateBills);

@@ -1,19 +1,10 @@
 import React from "react";
 import { Input, TextField } from "@material-ui/core";
 import SuccessAlert from "src/containers/Modals/SuccessAlert";
-import { connect, useDispatch, useSelector } from "react-redux";
-import * as stockActions from "src/store/actions/stock.actions";
+import { useSelector } from "react-redux";
 import { Autocomplete } from "@material-ui/lab";
-import isEmpty from "lodash/isEmpty";
 
-function CreateBillDetail(props: any) {
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(stockActions.fetchStock());
-    if (props.stock.stock) {
-      setStock(props.stock.stock);
-    }
-  }, []);
+export default function CreateBillDetail(props: any) {
   const stockProps = useSelector((state: any) => state.stock.stock);
   const [unitValue, setUnitValue] = React.useState(
     props.selectedRow ? props.selectedRow.unitValue : 0
@@ -21,7 +12,6 @@ function CreateBillDetail(props: any) {
   const [productId, setProductId] = React.useState(
     props.selectedRow ? props.selectedRow.productId : ""
   );
-  const [stock, setStock] = React.useState([]);
   const [quantity, setQuantity] = React.useState(
     props.selectedRow && props.selectedRow.quantity
       ? props.selectedRow.quantity
@@ -31,14 +21,15 @@ function CreateBillDetail(props: any) {
     props.selectedRow ? props.selectedRow.totalValue : 0
   );
   const [openModal, setOpenModal] = React.useState(false);
-  const [name, setName] = React.useState("");
+  const [name, setName] = React.useState(
+    props.selectedRow ? props.selectedRow.productName : ""
+  );
 
   const handleClose = () => {
     setOpenModal(false);
   };
 
   const handleProductId = (event: any, values: any) => {
-    console.log(values);
     setProductId(values ? values.id : "");
     setUnitValue(values ? values.price : "");
     setTotalValue(values ? values.price * quantity : 0);
@@ -60,10 +51,10 @@ function CreateBillDetail(props: any) {
         {(!props.edit || props.billDetail) && <h2>Crear detalle de factura</h2>}
         <h4>Producto</h4>
         <Autocomplete
-          id="stock"
-          options={isEmpty(stock) ? stockProps : stock}
-          getOptionLabel={(option: any) => option.name || ""}
-          defaultValue={stock}
+          id="name"
+          options={stockProps}
+          getOptionLabel={(option: any) => option.name || name}
+          defaultValue={name}
           onChange={handleProductId}
           style={{ width: 300 }}
           renderInput={(params: any) => <TextField {...params} />}
@@ -89,9 +80,3 @@ function CreateBillDetail(props: any) {
     </div>
   );
 }
-
-const mapStateToProps = (state: any) => ({
-  stock: state.stock,
-});
-
-export default connect(mapStateToProps)(CreateBillDetail);

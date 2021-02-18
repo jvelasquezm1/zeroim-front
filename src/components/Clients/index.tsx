@@ -1,29 +1,20 @@
 import * as React from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Table from "src/containers/Table";
-import * as ClientsActions from "src/store/actions/clients.actions";
 import { ColDef, CellParams } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
 import Modals from "src/containers/Modals";
 import Actions from "src/containers/Actions";
 import { TextField } from "@material-ui/core";
-import isEmpty from "lodash/isEmpty";
 import { filterByValue } from "src/utils";
 import { noResults, noResultsColumns } from "src/utils/constants";
 
-function Client(props: any) {
-  const dispatch = useDispatch();
+export default function Client(props: any) {
   const clientsProps = useSelector((state: any) => state.clients.clients);
 
-  React.useEffect(() => {
-    dispatch(ClientsActions.fetchClients());
-    if (props.clients.clients) {
-      setClients(props.clients.clients);
-    }
-  }, []);
   const [openModal, setOpenModal] = React.useState(false);
-  const [clients, setClients] = React.useState(props.clients.clients);
+  const [clients, setClients] = React.useState(clientsProps);
   const [selectedRow, setSelectedRow] = React.useState({
     edit: false,
     delete: false,
@@ -68,7 +59,7 @@ function Client(props: any) {
           label="Tipo de ID"
           onChange={(e) => {
             const filteredValue = filterByValue(
-              props.clients.clients,
+              clientsProps,
               "idType",
               e.target.value
             ) as any;
@@ -80,7 +71,7 @@ function Client(props: any) {
           label="Numero"
           onChange={(e) => {
             const filteredValue = filterByValue(
-              props.clients.clients,
+              clientsProps,
               "idNumber",
               e.target.value
             ) as any;
@@ -92,7 +83,7 @@ function Client(props: any) {
           label="Nombre"
           onChange={(e) => {
             const filteredValue = filterByValue(
-              props.clients.clients,
+              clientsProps,
               "name",
               e.target.value
             ) as any;
@@ -104,7 +95,7 @@ function Client(props: any) {
           label="Direccion"
           onChange={(e) => {
             const filteredValue = filterByValue(
-              props.clients.clients,
+              clientsProps,
               "address",
               e.target.value
             ) as any;
@@ -116,7 +107,7 @@ function Client(props: any) {
           label="Telefono"
           onChange={(e) => {
             const filteredValue = filterByValue(
-              props.clients.clients,
+              clientsProps,
               "phone",
               e.target.value
             ) as any;
@@ -125,7 +116,7 @@ function Client(props: any) {
         />
       </div>
       <Table
-        rows={isEmpty(clients) ? clientsProps : clients}
+        rows={clientsProps}
         columns={clients === noResults ? noResultsColumns : columns}
         pageSize={10}
       />
@@ -138,9 +129,3 @@ function Client(props: any) {
     </div>
   );
 }
-
-const mapStateToProps = (state: any) => ({
-  clients: state.clients,
-});
-
-export default connect(mapStateToProps)(Client);

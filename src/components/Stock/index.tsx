@@ -1,29 +1,20 @@
 import * as React from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Table from "src/containers/Table";
-import * as StockActions from "src/store/actions/stock.actions";
 import { ColDef, CellParams } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
 import Modals from "src/containers/Modals";
 import Actions from "src/containers/Actions";
-import isEmpty from "lodash/isEmpty";
 import { TextField } from "@material-ui/core";
 import { noResults, noResultsColumns } from "src/utils/constants";
 import { filterByValue } from "src/utils";
 
-function Stock(props: any) {
-  const dispatch = useDispatch();
+export default function Stock(props: any) {
   const stockProps = useSelector((state: any) => state.stock.stock);
 
-  React.useEffect(() => {
-    dispatch(StockActions.fetchStock());
-    if (props.stock.stock) {
-      setStock(props.stock.stock);
-    }
-  }, []);
   const [openModal, setOpenModal] = React.useState(false);
-  const [stock, setStock] = React.useState(props.stock.stock);
+  const [stock, setStock] = React.useState(stockProps);
   const [selectedRow, setSelectedRow] = React.useState({
     edit: false,
     delete: false,
@@ -68,7 +59,7 @@ function Stock(props: any) {
           label="ID"
           onChange={(e) => {
             const filteredValue = filterByValue(
-              props.stock.stock,
+              stockProps,
               "id",
               e.target.value
             ) as any;
@@ -80,7 +71,7 @@ function Stock(props: any) {
           label="Nombre"
           onChange={(e) => {
             const filteredValue = filterByValue(
-              props.stock.stock,
+              stockProps,
               "name",
               e.target.value
             ) as any;
@@ -92,7 +83,7 @@ function Stock(props: any) {
           label="Precio"
           onChange={(e) => {
             const filteredValue = filterByValue(
-              props.stock.stock,
+              stockProps,
               "price",
               e.target.value
             ) as any;
@@ -104,7 +95,7 @@ function Stock(props: any) {
           label="Cantidad"
           onChange={(e) => {
             const filteredValue = filterByValue(
-              props.stock.stock,
+              stockProps,
               "sku",
               e.target.value
             ) as any;
@@ -113,7 +104,7 @@ function Stock(props: any) {
         />
       </div>
       <Table
-        rows={isEmpty(stock) ? stockProps : stock}
+        rows={stockProps}
         columns={stock === noResults ? noResultsColumns : columns}
         pageSize={10}
       />
@@ -126,9 +117,3 @@ function Stock(props: any) {
     </div>
   );
 }
-
-const mapStateToProps = (state: any) => ({
-  stock: state.stock,
-});
-
-export default connect(mapStateToProps)(Stock);
