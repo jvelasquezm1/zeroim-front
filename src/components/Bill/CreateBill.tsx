@@ -44,14 +44,19 @@ function CreateBills(props: any) {
     props.selectedRow ? props.selectedRow.clientId : ""
   );
   const [total, setTotal] = React.useState(
-    props.selectedRow ? props.selectedRow.total : ""
+    props.selectedRow ? props.selectedRow.total : 0
   );
+
   const [billDetail, setDetailID] = React.useState(
     props.selectedRow ? props.selectedRow.billDetail : []
   );
   const [openModal, setOpenModal] = React.useState(false);
   const [openDetailModal, setOpenDetailModal] = React.useState(false);
-  const [clients, setClients] = React.useState(props.clients.clients);
+  const [clients, setClients] = React.useState([]);
+
+  React.useEffect(() => {
+    billDetail.map((bill: any) => setTotal(total + bill.totalValue));
+  }, [billDetail]);
 
   const handleClose = () => {
     setOpenModal(false);
@@ -69,12 +74,9 @@ function CreateBills(props: any) {
   const handleclientId = (client: any) => {
     setclientId(client ? client.id : "");
   };
-  const handleTotal = (event: any) => {
-    setTotal(event.target.value);
-  };
 
   const addBills_ = () => {
-    addBills(id, date.getTime(), clientId, billDetail, total);
+    addBills(id, date, clientId, billDetail, total);
     // setOpenModal(true);
   };
 
@@ -121,6 +123,7 @@ function CreateBills(props: any) {
                   <TableCell>Producto</TableCell>
                   <TableCell>Cantidad</TableCell>
                   <TableCell>Precio unitario</TableCell>
+                  <TableCell>Precio total</TableCell>
                   <TableCell align="right">
                     <Button
                       onClick={() => setOpenDetailModal(true)}
@@ -137,7 +140,7 @@ function CreateBills(props: any) {
                   return (
                     <TableRow key={detail.id}>
                       <TableCell component="th" scope="row">
-                        {detail.productId}
+                        {detail.name}
                       </TableCell>
                       <TableCell>{detail.quantity}</TableCell>
                       <TableCell>{detail.unitValue}</TableCell>
@@ -150,14 +153,7 @@ function CreateBills(props: any) {
           </Box>
         </Collapse>
         <h4>Total</h4>
-        <Input
-          className="form-input"
-          type="number"
-          name="total"
-          defaultValue={total}
-          onChange={(e) => handleTotal(e)}
-          placeholder="Total"
-        />
+        <p>${total}</p>
       </form>
       <Modals
         openModal={openDetailModal}

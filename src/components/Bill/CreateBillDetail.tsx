@@ -1,39 +1,55 @@
 import React from "react";
-import { Input } from "@material-ui/core";
+import { Input, TextField } from "@material-ui/core";
 import SuccessAlert from "src/containers/Modals/SuccessAlert";
+import { connect, useDispatch, useSelector } from "react-redux";
+import * as stockActions from "src/store/actions/stock.actions";
+import { Autocomplete } from "@material-ui/lab";
+import isEmpty from "lodash/isEmpty";
 
-export default function CreateBillDetail(props: any) {
+function CreateBillDetail(props: any) {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(stockActions.fetchStock());
+    if (props.stock.stock) {
+      setStock(props.stock.stock);
+    }
+  }, []);
+  const stockProps = useSelector((state: any) => state.stock.stock);
   const [unitValue, setUnitValue] = React.useState(
     props.selectedRow ? props.selectedRow.unitValue : 0
   );
   const [productId, setProductId] = React.useState(
     props.selectedRow ? props.selectedRow.productId : ""
   );
+  const [stock, setStock] = React.useState([]);
   const [quantity, setQuantity] = React.useState(
-    props.selectedRow ? props.selectedRow.quantity : 0
+    props.selectedRow && props.selectedRow.quantity
+      ? props.selectedRow.quantity
+      : 1
   );
   const [totalValue, setTotalValue] = React.useState(
     props.selectedRow ? props.selectedRow.totalValue : 0
   );
   const [openModal, setOpenModal] = React.useState(false);
+  const [name, setName] = React.useState("");
 
   const handleClose = () => {
     setOpenModal(false);
   };
 
-  const handleUnitValue = (event: any) => {
-    setUnitValue(event.target.value);
-  };
-  const handleProductId = (event: any) => {
-    setProductId(event.target.value);
-    setTotalValue(event.target.value * quantity);
+  const handleProductId = (event: any, values: any) => {
+    console.log(values);
+    setProductId(values ? values.id : "");
+    setUnitValue(values ? values.price : "");
+    setTotalValue(values ? values.price * quantity : 0);
+    setName(values ? values.name : "");
   };
   const handleQuantity = (event: any) => {
     setQuantity(event.target.value);
     setTotalValue(unitValue * event.target.value);
   };
   const addBillDetail = () => {
-    const newBillDetail = { productId, quantity, unitValue, totalValue };
+    const newBillDetail = { name, productId, quantity, unitValue, totalValue };
     props.setDetailID(props.billDetail.concat(newBillDetail));
     // setOpenModal(true);
   };
@@ -43,23 +59,17 @@ export default function CreateBillDetail(props: any) {
       <form>
         {(!props.edit || props.billDetail) && <h2>Crear detalle de factura</h2>}
         <h4>Producto</h4>
-        <Input
-          className="form-input"
-          type="text"
-          name="productId"
-          defaultValue={productId}
-          onChange={(e) => handleProductId(e)}
-          placeholder="Producto"
+        <Autocomplete
+          id="stock"
+          options={isEmpty(stock) ? stockProps : stock}
+          getOptionLabel={(option: any) => option.name || ""}
+          defaultValue={stock}
+          onChange={handleProductId}
+          style={{ width: 300 }}
+          renderInput={(params: any) => <TextField {...params} />}
         />
         <h4>Precio unitario</h4>
-        <Input
-          className="form-input"
-          type="text"
-          name="unitValue"
-          defaultValue={unitValue}
-          onChange={(e) => handleUnitValue(e)}
-          placeholder="Precio unitario"
-        />
+        <p>${unitValue}</p>
         <h4>Cantidad</h4>
         <Input
           className="form-input"
@@ -79,3 +89,9 @@ export default function CreateBillDetail(props: any) {
     </div>
   );
 }
+
+const mapStateToProps = (state: any) => ({
+  stock: state.stock,
+});
+
+export default connect(mapStateToProps)(CreateBillDetail);
