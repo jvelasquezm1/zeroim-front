@@ -9,8 +9,19 @@ import Actions from "src/containers/Actions";
 import { TextField } from "@material-ui/core";
 import { filterByValue } from "src/utils";
 import { noResults, noResultsColumns } from "src/utils/constants";
+import { useDispatch } from "react-redux";
+import * as stockActions from "src/store/actions/stock.actions";
+import * as billsActions from "src/store/actions/bills.actions";
+import * as clientsActions from "src/store/actions/clients.actions";
 
 export default function Client(props: any) {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(stockActions.fetchStock());
+    dispatch(billsActions.fetchBills());
+    dispatch(clientsActions.fetchClients());
+  }, []);
   const clientsProps = useSelector((state: any) => state.clients.clients);
 
   const [openModal, setOpenModal] = React.useState(false);

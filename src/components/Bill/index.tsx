@@ -11,8 +11,19 @@ import { TextField } from "@material-ui/core";
 import filter from "lodash/filter";
 import { filterByValue } from "src/utils";
 import { noResults, noResultsColumns } from "src/utils/constants";
+import { useDispatch } from "react-redux";
+import * as stockActions from "src/store/actions/stock.actions";
+import * as billsActions from "src/store/actions/bills.actions";
+import * as clientsActions from "src/store/actions/clients.actions";
 
 export default function Bill(props: any) {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(stockActions.fetchStock());
+    dispatch(billsActions.fetchBills());
+    dispatch(clientsActions.fetchClients());
+  }, []);
   const billsProps = useSelector((state: any) => state.bills.bills);
   const clientsProps = useSelector((state: any) => state.clients.clients);
 
