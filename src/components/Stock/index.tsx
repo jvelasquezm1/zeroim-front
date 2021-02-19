@@ -1,28 +1,18 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { compose } from "redux";
+import { ColDef, CellParams } from "@material-ui/data-grid";
+import { TextField } from "@material-ui/core";
 
 import Table from "src/containers/Table";
-import { ColDef, CellParams } from "@material-ui/data-grid";
-import { Link } from "react-router-dom";
 import Modals from "src/containers/Modals";
 import Actions from "src/containers/Actions";
-import { TextField } from "@material-ui/core";
 import { noResults, noResultsColumns } from "src/utils/constants";
 import { filterByValue } from "src/utils";
-import { useDispatch } from "react-redux";
-import * as stockActions from "src/store/actions/stock.actions";
-import * as billsActions from "src/store/actions/bills.actions";
-import * as clientsActions from "src/store/actions/clients.actions";
+import withStockDataProvider from "../HOCs/withStockDataProvider";
 
-export default function Stock(props: any) {
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    dispatch(stockActions.fetchStock());
-    dispatch(billsActions.fetchBills());
-    dispatch(clientsActions.fetchClients());
-  }, []);
-
+function Stock(props: any) {
   const stockProps = useSelector((state: any) => state.stock.stock);
 
   const [openModal, setOpenModal] = React.useState(false);
@@ -129,3 +119,5 @@ export default function Stock(props: any) {
     </div>
   );
 }
+
+export default compose(withStockDataProvider)(Stock);

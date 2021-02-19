@@ -1,27 +1,18 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { compose } from "redux";
+import { ColDef, CellParams } from "@material-ui/data-grid";
+import { TextField } from "@material-ui/core";
 
 import Table from "src/containers/Table";
-import { ColDef, CellParams } from "@material-ui/data-grid";
-import { Link } from "react-router-dom";
 import Modals from "src/containers/Modals";
 import Actions from "src/containers/Actions";
-import { TextField } from "@material-ui/core";
 import { filterByValue } from "src/utils";
 import { noResults, noResultsColumns } from "src/utils/constants";
-import { useDispatch } from "react-redux";
-import * as stockActions from "src/store/actions/stock.actions";
-import * as billsActions from "src/store/actions/bills.actions";
-import * as clientsActions from "src/store/actions/clients.actions";
+import withClientsDataProvider from "../HOCs/withClientsDataProvider";
 
-export default function Client(props: any) {
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    dispatch(stockActions.fetchStock());
-    dispatch(billsActions.fetchBills());
-    dispatch(clientsActions.fetchClients());
-  }, []);
+function Client(props: any) {
   const clientsProps = useSelector((state: any) => state.clients.clients);
 
   const [openModal, setOpenModal] = React.useState(false);
@@ -140,3 +131,5 @@ export default function Client(props: any) {
     </div>
   );
 }
+
+export default compose(withClientsDataProvider)(Client);

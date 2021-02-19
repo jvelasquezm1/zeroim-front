@@ -1,29 +1,21 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { compose } from "redux";
+import { ColDef, CellParams } from "@material-ui/data-grid";
+import { TextField } from "@material-ui/core";
+import isEmpty from "lodash/isEmpty";
+import filter from "lodash/filter";
 
 import Table from "src/containers/Table";
-import { ColDef, CellParams } from "@material-ui/data-grid";
-import { Link } from "react-router-dom";
 import Modals from "src/containers/Modals";
 import Actions from "src/containers/Actions";
-import isEmpty from "lodash/isEmpty";
-import { TextField } from "@material-ui/core";
-import filter from "lodash/filter";
 import { filterByValue } from "src/utils";
 import { noResults, noResultsColumns } from "src/utils/constants";
-import { useDispatch } from "react-redux";
-import * as stockActions from "src/store/actions/stock.actions";
-import * as billsActions from "src/store/actions/bills.actions";
-import * as clientsActions from "src/store/actions/clients.actions";
+import withBillsDataProvider from "../HOCs/withBillsDataProvider";
+import withClientsDataProvider from "../HOCs/withClientsDataProvider";
 
-export default function Bill(props: any) {
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    dispatch(stockActions.fetchStock());
-    dispatch(billsActions.fetchBills());
-    dispatch(clientsActions.fetchClients());
-  }, []);
+function Bill(props: any) {
   const billsProps = useSelector((state: any) => state.bills.bills);
   const clientsProps = useSelector((state: any) => state.clients.clients);
 
@@ -194,3 +186,5 @@ export default function Bill(props: any) {
     </div>
   );
 }
+
+export default compose(withBillsDataProvider, withClientsDataProvider)(Bill);
