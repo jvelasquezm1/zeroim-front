@@ -44,6 +44,7 @@ function Bill(props: any) {
   const [selectedDetailRow, setSelectedDetailRow] = React.useState({
     edit: false,
     delete: false,
+    productId: "",
   });
   const [openDetails, setOpenDetails] = React.useState(false);
 
@@ -62,10 +63,21 @@ function Bill(props: any) {
     setOpenModal(true);
   };
   const handleDetailClose = () => {
+    if (selectedDetailRow.delete && selectedRow.billDetail) {
+      const filteredArray = selectedRow.billDetail.filter(
+        (item: any) => item.productId !== selectedDetailRow.productId
+      );
+      const newSelectedRow = Object.assign({}, selectedRow);
+      newSelectedRow.billDetail = filteredArray;
+      setSelectedRow(newSelectedRow);
+      console.log("TODO - Update on DB");
+    }
     setOpenDetailModal(false);
   };
-  const handleDetailOpen = (params: any) => {
-    setSelectedDetailRow(Object.assign(params, { edit: true, delete: false }));
+  const handleDetailOpen = (params: any, edit: any, delete_: any) => {
+    setSelectedDetailRow(
+      Object.assign(params, { edit: edit, delete: delete_ })
+    );
     setOpenDetailModal(true);
   };
   const renderBillDetails = (params: any) => {
@@ -101,8 +113,15 @@ function Bill(props: any) {
                     <TableCell>{row.unitValue}</TableCell>
                     <TableCell>{row.totalValue}</TableCell>
                     <TableCell>
-                      <Button onClick={() => handleDetailOpen(row)}>
+                      <Button
+                        onClick={() => handleDetailOpen(row, true, false)}
+                      >
                         <i className="fa fa-edit"></i>
+                      </Button>
+                      <Button
+                        onClick={() => handleDetailOpen(row, false, true)}
+                      >
+                        <i className="fa fa-trash red"></i>
                       </Button>
                     </TableCell>
                   </TableRow>

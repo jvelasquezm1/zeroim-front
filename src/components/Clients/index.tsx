@@ -28,7 +28,7 @@ function Client(props: any) {
     setOpenModal(true);
   };
   const columns: ColDef[] = [
-    { field: "idType", headerName: "Tipo de Id", width: 95 },
+    { field: "idType", headerName: "Tipo de Id", width: 185 },
     { field: "idNumber", headerName: "Numero", width: 185 },
     { field: "name", headerName: "Nombre", width: 185 },
     { field: "address", headerName: "Direccion", width: 185 },
@@ -36,6 +36,7 @@ function Client(props: any) {
     {
       field: "",
       headerName: "Action",
+      width: 195,
       disableClickEventBubbling: true,
       renderCell: (params: CellParams) => {
         return (

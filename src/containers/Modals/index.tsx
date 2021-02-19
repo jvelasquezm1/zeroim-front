@@ -34,7 +34,7 @@ export default function Modals(props: ModalsProps) {
             type={props.type}
           />
         ) : (
-          <DeleteAlert selectedRow={props.selectedRow} />
+          <DeleteAlert selectedRow={props.selectedRow} type={props.type} />
         )}
       </DialogContent>
       <DialogActions>

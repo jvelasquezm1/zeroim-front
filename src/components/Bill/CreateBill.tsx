@@ -46,6 +46,7 @@ export default function CreateBills(props: any) {
   const [selectedDetailRow, setSelectedDetailRow] = React.useState({
     edit: true,
     delete: false,
+    productId: "",
   });
   const [openModal, setOpenModal] = React.useState(false);
   const [openDetailModal, setOpenDetailModal] = React.useState(false);
@@ -58,13 +59,24 @@ export default function CreateBills(props: any) {
     setOpenModal(false);
   };
   const handleDetailClose = () => {
+    if (selectedDetailRow.delete) {
+      const filteredArray = billDetail.filter(
+        (item: any) => item.productId !== selectedDetailRow.productId
+      );
+      setBillDetail(filteredArray);
+      console.log("TODO - Update on DB");
+    }
     setOpenDetailModal(false);
   };
-  const setOpenDetailModalWithDetailData = (detail: any) => {
+  const setOpenDetailModalWithDetailData = (
+    detail: any,
+    edit: any,
+    delete_: any
+  ) => {
     setSelectedDetailRow(
       Object.assign(detail, {
-        edit: true,
-        delete: false,
+        edit: edit,
+        delete: delete_,
         updateBillDetail: true,
       })
     );
@@ -168,12 +180,29 @@ export default function CreateBills(props: any) {
                       <TableCell align="right">
                         <Button
                           onClick={() =>
-                            setOpenDetailModalWithDetailData(detail)
+                            setOpenDetailModalWithDetailData(
+                              detail,
+                              true,
+                              false
+                            )
                           }
                           variant="contained"
                           color="primary"
                         >
                           <i className="fa fa-edit"></i>
+                        </Button>
+                        <Button
+                          onClick={() =>
+                            setOpenDetailModalWithDetailData(
+                              detail,
+                              false,
+                              true
+                            )
+                          }
+                          variant="contained"
+                          color="primary"
+                        >
+                          <i className="fa fa-trash red"></i>
                         </Button>
                       </TableCell>
                     </TableRow>
