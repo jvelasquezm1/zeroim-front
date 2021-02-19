@@ -12,6 +12,8 @@ import {
   TableCell,
   Button,
 } from "@material-ui/core";
+import isEmpty from "lodash/isEmpty";
+import filter from "lodash/filter";
 import SuccessAlert from "src/containers/Modals/SuccessAlert";
 import { addBills } from "src/services/bills.services";
 import DateFnsUtils from "@date-io/date-fns";
@@ -26,7 +28,7 @@ import { useSelector } from "react-redux";
 export default function CreateBills(props: any) {
   const clientsProps = useSelector((state: any) => state.clients.clients);
   const [id, setId] = React.useState(
-    props.selectedRow ? props.selectedRow.id : ""
+    props.selectedRow ? props.selectedRow.billNumber : ""
   );
   const [date, setDate] = React.useState(
     props.selectedRow ? props.selectedRow.date : new Date()
@@ -83,6 +85,21 @@ export default function CreateBills(props: any) {
     // setOpenModal(true);
   };
 
+  const updateBills = () => {
+    console.log(id, date, clientId, billDetail, total);
+    // setOpenModal(true);
+  };
+
+  const getClientName = () => {
+    if (isEmpty(props.selectedRow)) {
+      return "";
+    }
+    const client = filter(clientsProps, {
+      id: props.selectedRow.clientId,
+    }) as any;
+    return client[0].name;
+  };
+
   return (
     <div className="create-container">
       <form>
@@ -109,7 +126,7 @@ export default function CreateBills(props: any) {
         <Autocomplete
           id="clientId"
           options={clientsProps}
-          getOptionLabel={(option) => option.name || ""}
+          getOptionLabel={(option) => option.name || getClientName()}
           defaultValue={clientId}
           onChange={(event: any, newValue: string | null) => {
             handleclientId(newValue);
@@ -143,7 +160,7 @@ export default function CreateBills(props: any) {
                   return (
                     <TableRow key={detail.id}>
                       <TableCell component="th" scope="row">
-                        {detail.name}
+                        {detail.productName || detail.name}
                       </TableCell>
                       <TableCell>{detail.quantity}</TableCell>
                       <TableCell>{detail.unitValue}</TableCell>
@@ -178,7 +195,10 @@ export default function CreateBills(props: any) {
         billDetail={billDetail}
       />
       <SuccessAlert openModal={openModal} handleClose={handleClose} />
-      <button className="create-button" onClick={addBills_}>
+      <button
+        className="create-button"
+        onClick={props.selectedRow ? updateBills : addBills_}
+      >
         {props.edit ? "Editar" : "Crear"}
       </button>
     </div>

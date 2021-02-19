@@ -3,11 +3,23 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { compose } from "redux";
 import { ColDef, CellParams } from "@material-ui/data-grid";
-import { TextField } from "@material-ui/core";
+import {
+  TextField,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@material-ui/core";
 import isEmpty from "lodash/isEmpty";
 import filter from "lodash/filter";
 
-import Table from "src/containers/Table";
+import { default as Util } from "src/containers/Table";
 import Modals from "src/containers/Modals";
 import Actions from "src/containers/Actions";
 import { filterByValue } from "src/utils";
@@ -26,11 +38,23 @@ function Bill(props: any) {
   const [selectedRow, setSelectedRow] = React.useState({
     edit: false,
     delete: false,
+    billDetail: [],
+    billNumber: "",
   });
   const [selectedDetailRow, setSelectedDetailRow] = React.useState({
     edit: false,
     delete: false,
   });
+  const [openDetails, setOpenDetails] = React.useState(false);
+
+  const handleDetailsOpen = (row: any) => {
+    setSelectedRow(row);
+    setOpenDetails(true);
+  };
+
+  const handleDetailsClose = () => {
+    setOpenDetails(false);
+  };
   const handleClose = () => {
     setOpenModal(false);
   };
@@ -43,6 +67,57 @@ function Bill(props: any) {
   const handleDetailOpen = (params: any) => {
     setSelectedDetailRow(Object.assign(params, { edit: true, delete: false }));
     setOpenDetailModal(true);
+  };
+  const renderBillDetails = (params: any) => {
+    return (
+      <div>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => handleDetailsOpen(params.row)}
+        >
+          Ver detalles
+        </Button>
+        <Dialog open={openDetails} onClose={handleDetailsClose} fullWidth>
+          <DialogTitle>
+            Detalles de factura {selectedRow.billNumber}
+          </DialogTitle>
+          <DialogContent>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Producto</TableCell>
+                  <TableCell>Cantidad</TableCell>
+                  <TableCell>Valor unitario</TableCell>
+                  <TableCell>Valor Total</TableCell>
+                  <TableCell>Acciones</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {selectedRow.billDetail.map((row: any) => (
+                  <TableRow key={row.productId}>
+                    <TableCell>{row.productName}</TableCell>
+                    <TableCell>{row.quantity}</TableCell>
+                    <TableCell>{row.unitValue}</TableCell>
+                    <TableCell>{row.totalValue}</TableCell>
+                    <TableCell>
+                      <Button onClick={() => handleDetailOpen(row)}>
+                        <i className="fa fa-edit"></i>
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDetailsClose} color="primary">
+              Cancelar
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
   };
   const columns: ColDef[] = [
     { field: "billNumber", headerName: "ID", width: 100 },
@@ -68,15 +143,7 @@ function Bill(props: any) {
       headerName: "Detalles",
       width: 220,
       renderCell: (params: CellParams) => {
-        return (
-          <div>
-            {params.row.billDetail.map((detail: any) => (
-              <button key={detail.id} onClick={() => handleDetailOpen(detail)}>
-                {detail.productName}
-              </button>
-            ))}
-          </div>
-        );
+        return renderBillDetails(params);
       },
     },
     { field: "total", headerName: "TOTAL", width: 220 },
@@ -167,7 +234,7 @@ function Bill(props: any) {
           }}
         />
       </div>
-      <Table
+      <Util
         rows={billsProps}
         columns={bills === noResults ? noResultsColumns : columns}
         pageSize={10}
