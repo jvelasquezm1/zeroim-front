@@ -14,6 +14,7 @@ import { filterByValue } from "src/utils";
 import { noResults, noResultsColumns } from "src/utils/constants";
 import withBillsDataProvider from "../HOCs/withBillsDataProvider";
 import withClientsDataProvider from "../HOCs/withClientsDataProvider";
+import withStockDataProvider from "../HOCs/withStockDataProvider";
 
 function Bill(props: any) {
   const billsProps = useSelector((state: any) => state.bills.bills);
@@ -187,4 +188,8 @@ function Bill(props: any) {
   );
 }
 
-export default compose(withBillsDataProvider, withClientsDataProvider)(Bill);
+export default compose(
+  withBillsDataProvider,
+  withClientsDataProvider,
+  withStockDataProvider
+)(Bill);

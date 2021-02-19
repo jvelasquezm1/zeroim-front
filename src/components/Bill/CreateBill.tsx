@@ -22,7 +22,6 @@ import {
 import { Autocomplete } from "@material-ui/lab";
 import Modals from "src/containers/Modals";
 import { useSelector } from "react-redux";
-import isEmpty from "lodash/isEmpty";
 
 export default function CreateBills(props: any) {
   const clientsProps = useSelector((state: any) => state.clients.clients);
@@ -39,9 +38,13 @@ export default function CreateBills(props: any) {
     props.selectedRow ? props.selectedRow.total : 0
   );
 
-  const [billDetail, setDetailID] = React.useState(
+  const [billDetail, setBillDetail] = React.useState(
     props.selectedRow ? props.selectedRow.billDetail : []
   );
+  const [selectedDetailRow, setSelectedDetailRow] = React.useState({
+    edit: true,
+    delete: false,
+  });
   const [openModal, setOpenModal] = React.useState(false);
   const [openDetailModal, setOpenDetailModal] = React.useState(false);
 
@@ -55,7 +58,16 @@ export default function CreateBills(props: any) {
   const handleDetailClose = () => {
     setOpenDetailModal(false);
   };
-
+  const setOpenDetailModalWithDetailData = (detail: any) => {
+    setSelectedDetailRow(
+      Object.assign(detail, {
+        edit: true,
+        delete: false,
+        updateBillDetail: true,
+      })
+    );
+    setOpenDetailModal(true);
+  };
   const handleId = (event: any) => {
     setId(event.target.value);
   };
@@ -136,6 +148,17 @@ export default function CreateBills(props: any) {
                       <TableCell>{detail.quantity}</TableCell>
                       <TableCell>{detail.unitValue}</TableCell>
                       <TableCell>{detail.totalValue}</TableCell>
+                      <TableCell align="right">
+                        <Button
+                          onClick={() =>
+                            setOpenDetailModalWithDetailData(detail)
+                          }
+                          variant="contained"
+                          color="primary"
+                        >
+                          <i className="fa fa-edit"></i>
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -149,9 +172,9 @@ export default function CreateBills(props: any) {
       <Modals
         openModal={openDetailModal}
         handleClose={handleDetailClose}
-        selectedRow={{ edit: true }}
+        selectedRow={selectedDetailRow}
         type="billDetail"
-        setDetailID={setDetailID}
+        setDetailID={setBillDetail}
         billDetail={billDetail}
       />
       <SuccessAlert openModal={openModal} handleClose={handleClose} />

@@ -19,7 +19,11 @@ export default function Modals(props: ModalsProps) {
       fullWidth
     >
       <DialogTitle id="form-dialog-title">
-        {props.selectedRow.edit ? (props.billDetail ? "Crear" : "Editar") : "Borrar"}
+        {props.selectedRow.edit
+          ? props.billDetail && !props.selectedRow.updateBillDetail
+            ? "Crear"
+            : "Editar"
+          : "Borrar"}
       </DialogTitle>
       <DialogContent>
         {props.selectedRow.edit ? (
