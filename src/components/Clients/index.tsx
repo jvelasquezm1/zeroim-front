@@ -4,11 +4,12 @@ import { useSelector } from "react-redux";
 import { compose } from "redux";
 import { ColDef, CellParams } from "@material-ui/data-grid";
 import { TextField } from "@material-ui/core";
+import isEmpty from "lodash/isEmpty";
 
 import Table from "src/containers/Table";
 import Modals from "src/containers/Modals";
 import Actions from "src/containers/Actions";
-import { filterByValue } from "src/utils";
+import { filterByTextValue, filterByNumberValue } from "src/utils";
 import { noResults, noResultsColumns } from "src/utils/constants";
 import withClientsDataProvider from "../HOCs/withClientsDataProvider";
 
@@ -61,7 +62,7 @@ function Client(props: any) {
           id="id"
           label="Tipo de ID"
           onChange={(e) => {
-            const filteredValue = filterByValue(
+            const filteredValue = filterByTextValue(
               clientsProps,
               "idType",
               e.target.value
@@ -73,7 +74,7 @@ function Client(props: any) {
           id="number"
           label="Numero"
           onChange={(e) => {
-            const filteredValue = filterByValue(
+            const filteredValue = filterByNumberValue(
               clientsProps,
               "idNumber",
               e.target.value
@@ -85,7 +86,7 @@ function Client(props: any) {
           id="name"
           label="Nombre"
           onChange={(e) => {
-            const filteredValue = filterByValue(
+            const filteredValue = filterByTextValue(
               clientsProps,
               "name",
               e.target.value
@@ -97,7 +98,7 @@ function Client(props: any) {
           id="address"
           label="Direccion"
           onChange={(e) => {
-            const filteredValue = filterByValue(
+            const filteredValue = filterByTextValue(
               clientsProps,
               "address",
               e.target.value
@@ -109,7 +110,7 @@ function Client(props: any) {
           id="phone"
           label="Telefono"
           onChange={(e) => {
-            const filteredValue = filterByValue(
+            const filteredValue = filterByTextValue(
               clientsProps,
               "phone",
               e.target.value
@@ -119,7 +120,7 @@ function Client(props: any) {
         />
       </div>
       <Table
-        rows={clientsProps}
+        rows={isEmpty(clients) ? clientsProps : clients}
         columns={clients === noResults ? noResultsColumns : columns}
         pageSize={10}
       />

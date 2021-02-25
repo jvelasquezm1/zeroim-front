@@ -18,11 +18,20 @@ import {
 } from "@material-ui/core";
 import isEmpty from "lodash/isEmpty";
 import filter from "lodash/filter";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
 
 import { default as Util } from "src/containers/Table";
 import Modals from "src/containers/Modals";
 import Actions from "src/containers/Actions";
-import { filterByValue } from "src/utils";
+import {
+  filterByTextValue,
+  filterByDateValue,
+  filterByNumberValue,
+} from "src/utils";
 import { noResults, noResultsColumns } from "src/utils/constants";
 import withBillsDataProvider from "../HOCs/withBillsDataProvider";
 import withClientsDataProvider from "../HOCs/withClientsDataProvider";
@@ -196,46 +205,39 @@ function Bill(props: any) {
           id="id"
           label="ID"
           onChange={(e) => {
-            const filteredValue = filterByValue(
+            const filteredValue = filterByTextValue(
               billsProps,
-              "id",
+              "billNumber",
               e.target.value
             ) as any;
             setBills(filteredValue);
           }}
         />
-        <TextField
-          id="date"
-          label="Fecha"
-          onChange={(e) => {
-            const filteredValue = filterByValue(
-              billsProps,
-              "date",
-              e.target.value
-            ) as any;
-            setBills(filteredValue);
-          }}
-        />
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            format="MM/dd/yyyy"
+            id="date-picker-inline"
+            value={new Date()}
+            label="Fecha"
+            onChange={(value) => {
+              const filteredValue = filterByDateValue(
+                billsProps,
+                "date",
+                value
+              ) as any;
+              setBills(filteredValue);
+            }}
+          />
+        </MuiPickersUtilsProvider>
         <TextField
           id="clientId"
           label="Cliente"
           onChange={(e) => {
-            const filteredValue = filterByValue(
+            const filteredValue = filterByTextValue(
               billsProps,
               "clientId",
-              e.target.value
-            ) as any;
-            setBills(filteredValue);
-          }}
-        />
-        <TextField
-          id="billDetail"
-          label="Detalle"
-          onChange={(e) => {
-            const filteredValue = filterByValue(
-              billsProps,
-              "billDetail",
-              e.target.value
+              e.target.value,
+              clientsProps
             ) as any;
             setBills(filteredValue);
           }}
@@ -244,7 +246,7 @@ function Bill(props: any) {
           id="total"
           label="Total"
           onChange={(e) => {
-            const filteredValue = filterByValue(
+            const filteredValue = filterByNumberValue(
               billsProps,
               "total",
               e.target.value
@@ -252,9 +254,16 @@ function Bill(props: any) {
             setBills(filteredValue);
           }}
         />
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => setBills(billsProps)}
+        >
+          Remover filtro
+        </Button>
       </div>
       <Util
-        rows={billsProps}
+        rows={isEmpty(bills) ? billsProps : bills}
         columns={bills === noResults ? noResultsColumns : columns}
         pageSize={10}
       />

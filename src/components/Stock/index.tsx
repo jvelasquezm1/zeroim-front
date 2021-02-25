@@ -4,12 +4,13 @@ import { useSelector } from "react-redux";
 import { compose } from "redux";
 import { ColDef, CellParams } from "@material-ui/data-grid";
 import { TextField } from "@material-ui/core";
+import isEmpty from "lodash/isEmpty";
 
 import Table from "src/containers/Table";
 import Modals from "src/containers/Modals";
 import Actions from "src/containers/Actions";
 import { noResults, noResultsColumns } from "src/utils/constants";
-import { filterByValue } from "src/utils";
+import { filterByTextValue, filterByNumberValue } from "src/utils";
 import withStockDataProvider from "../HOCs/withStockDataProvider";
 
 function Stock(props: any) {
@@ -60,7 +61,7 @@ function Stock(props: any) {
           id="id"
           label="ID"
           onChange={(e) => {
-            const filteredValue = filterByValue(
+            const filteredValue = filterByTextValue(
               stockProps,
               "id",
               e.target.value
@@ -72,7 +73,7 @@ function Stock(props: any) {
           id="name"
           label="Nombre"
           onChange={(e) => {
-            const filteredValue = filterByValue(
+            const filteredValue = filterByTextValue(
               stockProps,
               "name",
               e.target.value
@@ -84,7 +85,7 @@ function Stock(props: any) {
           id="price"
           label="Precio"
           onChange={(e) => {
-            const filteredValue = filterByValue(
+            const filteredValue = filterByNumberValue(
               stockProps,
               "price",
               e.target.value
@@ -96,7 +97,7 @@ function Stock(props: any) {
           id="sku"
           label="Cantidad"
           onChange={(e) => {
-            const filteredValue = filterByValue(
+            const filteredValue = filterByNumberValue(
               stockProps,
               "sku",
               e.target.value
@@ -106,7 +107,7 @@ function Stock(props: any) {
         />
       </div>
       <Table
-        rows={stockProps}
+        rows={isEmpty(stock) ? stockProps : stock}
         columns={stock === noResults ? noResultsColumns : columns}
         pageSize={10}
       />

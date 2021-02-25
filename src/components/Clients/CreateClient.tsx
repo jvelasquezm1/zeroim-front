@@ -49,7 +49,7 @@ export default function CreateClient(props: any) {
   return (
     <div className="create-container">
       <form>
-        {!props.edit && <h2>Crear cliente</h2>}
+        {!props.edit && <h2 className="center">Crear cliente</h2>}
         <h4>Tipo de ID</h4>
         <Select
           className="form-input form-select"

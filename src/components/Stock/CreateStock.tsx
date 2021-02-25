@@ -43,7 +43,9 @@ export default function CreateStock(props: any) {
   return (
     <div className="create-container">
       <form>
-        {!props.edit && <h2>Crear producto en inventario</h2>}
+        {!props.edit && (
+          <h2 className="center">Crear producto en inventario</h2>
+        )}
         <h4>ID</h4>
         <Input
           className="form-input"

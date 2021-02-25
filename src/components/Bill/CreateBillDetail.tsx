@@ -57,12 +57,13 @@ export default function CreateBillDetail(props: any) {
     <div className="create-container">
       <form>
         {props.billDetail && !props.selectedRow.updateBillDetail && (
-          <h2>Crear detalle de factura</h2>
+          <h2 className="center">Crear detalle de factura</h2>
         )}
         <h4>Producto</h4>
         <Autocomplete
           id="name"
           options={stockProps}
+          className="form-input"
           getOptionLabel={(option: any) => option.name || name}
           defaultValue={name}
           onChange={handleProductId}

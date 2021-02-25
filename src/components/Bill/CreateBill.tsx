@@ -115,7 +115,7 @@ export default function CreateBills(props: any) {
   return (
     <div className="create-container">
       <form>
-        {!props.edit && <h2>Crear factura</h2>}
+        {!props.edit && <h2 className="center">Crear factura</h2>}
         <h4>ID</h4>
         <Input
           className="form-input"
@@ -132,6 +132,7 @@ export default function CreateBills(props: any) {
             id="date-picker-inline"
             value={date}
             onChange={handleDate}
+            className="form-input"
           />
         </MuiPickersUtilsProvider>
         <h4>Cliente</h4>
@@ -143,6 +144,7 @@ export default function CreateBills(props: any) {
           onChange={(event: any, newValue: string | null) => {
             handleclientId(newValue);
           }}
+          className="form-input"
           style={{ width: 300 }}
           renderInput={(params: any) => <TextField {...params} />}
         />
