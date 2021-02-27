@@ -12,6 +12,7 @@ import Actions from "src/containers/Actions";
 import { noResults, noResultsColumns } from "src/utils/constants";
 import { filterByTextValue, filterByNumberValue } from "src/utils";
 import withStockDataProvider from "../HOCs/withStockDataProvider";
+import { deleteStock } from "src/services/stock.services";
 
 function Stock(props: any) {
   const stockProps = useSelector((state: any) => state.stock.stock);
@@ -21,6 +22,7 @@ function Stock(props: any) {
   const [selectedRow, setSelectedRow] = React.useState({
     edit: false,
     delete: false,
+    id: "",
   });
   const handleClose = () => {
     setOpenModal(false);
@@ -116,7 +118,7 @@ function Stock(props: any) {
         handleClose={handleClose}
         selectedRow={selectedRow}
         type="stock"
-        deleteAction={() => console.log("Delete product")}
+        deleteAction={() => deleteStock(selectedRow.id)}
       />
     </div>
   );

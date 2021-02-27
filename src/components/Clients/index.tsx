@@ -12,6 +12,7 @@ import Actions from "src/containers/Actions";
 import { filterByTextValue, filterByNumberValue } from "src/utils";
 import { noResults, noResultsColumns } from "src/utils/constants";
 import withClientsDataProvider from "../HOCs/withClientsDataProvider";
+import { deleteClients } from "src/services/clients.services";
 
 function Client(props: any) {
   const clientsProps = useSelector((state: any) => state.clients.clients);
@@ -21,6 +22,7 @@ function Client(props: any) {
   const [selectedRow, setSelectedRow] = React.useState({
     edit: false,
     delete: false,
+    id: "",
   });
   const handleClose = () => {
     setOpenModal(false);
@@ -129,7 +131,7 @@ function Client(props: any) {
         handleClose={handleClose}
         selectedRow={selectedRow}
         type="clients"
-        deleteAction={() => console.log("Delete clients")}
+        deleteAction={() => deleteClients(selectedRow.id)}
       />
     </div>
   );
