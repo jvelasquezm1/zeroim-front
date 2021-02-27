@@ -129,6 +129,7 @@ function Client(props: any) {
         handleClose={handleClose}
         selectedRow={selectedRow}
         type="clients"
+        deleteAction={() => console.log("Delete clients")}
       />
     </div>
   );

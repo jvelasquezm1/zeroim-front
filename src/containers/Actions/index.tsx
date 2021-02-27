@@ -1,32 +1,17 @@
 import React from "react";
-import { GridApi } from "@material-ui/data-grid";
 
 export default function Actions(props: any) {
   const editRow = () => {
     props.setSelectedRow(
-      Object.assign(selectRow(props.params), { edit: true, delete: false })
+      Object.assign({ ...props.params.row }, { edit: true, delete: false })
     );
     props.handleOpen();
   };
   const deleteRow = () => {
     props.setSelectedRow(
-      Object.assign(selectRow(props.params), { edit: false, delete: true })
+      Object.assign({ ...props.params.row }, { edit: false, delete: true })
     );
     props.handleOpen();
-  };
-  const selectRow = (params: any) => {
-    const api: GridApi = params.api;
-    const fields = api
-      .getAllColumns()
-      .map((c) => c.field)
-      .filter((c) => c !== "__check__" && !!c);
-    const thisRow = {} as any;
-
-    fields.forEach((f: any) => {
-      thisRow[f] = params.getValue(f);
-    });
-
-    return thisRow;
   };
 
   return (

@@ -36,6 +36,7 @@ import { noResults, noResultsColumns } from "src/utils/constants";
 import withBillsDataProvider from "../HOCs/withBillsDataProvider";
 import withClientsDataProvider from "../HOCs/withClientsDataProvider";
 import withStockDataProvider from "../HOCs/withStockDataProvider";
+import { deleteBill } from "src/services/bills.services";
 
 function Bill(props: any) {
   const billsProps = useSelector((state: any) => state.bills.bills);
@@ -49,6 +50,7 @@ function Bill(props: any) {
     delete: false,
     billDetail: [],
     billNumber: "",
+    id: "",
   });
   const [selectedDetailRow, setSelectedDetailRow] = React.useState({
     edit: false,
@@ -272,12 +274,14 @@ function Bill(props: any) {
         handleClose={handleClose}
         selectedRow={selectedRow}
         type="bill"
+        deleteAction={() => deleteBill(selectedRow.id)}
       />
       <Modals
         openModal={openDetailModal}
         handleClose={handleDetailClose}
         selectedRow={selectedDetailRow}
         type="billDetail"
+        deleteAction={() => console.log("Update Selected row")}
       />
     </div>
   );

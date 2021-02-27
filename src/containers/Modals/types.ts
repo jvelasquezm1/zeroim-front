@@ -5,4 +5,5 @@ export interface ModalsProps {
   type: string;
   setDetailID?: any
   billDetail?: any;
+  deleteAction: () => void;
 }

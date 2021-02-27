@@ -1,4 +1,4 @@
 export interface DeleteAlertProps {
-  selectedRow: object;
+  selectedRow: any;
   type: string;
 }

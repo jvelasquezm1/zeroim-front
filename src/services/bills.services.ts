@@ -1,4 +1,4 @@
-import { post, get } from "./api";
+import { post, get, remove } from "./api";
 import { IBills } from "src/types/bills.model";
 
 export const addBills = async (
@@ -20,4 +20,8 @@ export const addBills = async (
 
 export const readBills = async (): Promise<IBills[]> => {
   return (await get<IBills[]>("bill/getAll")).data;
+};
+
+export const deleteBill = async (id: string): Promise<IBills[]> => {
+  return (await remove<IBills[]>(`bill/delete/${id}`)).data;
 };

@@ -116,6 +116,7 @@ function Stock(props: any) {
         handleClose={handleClose}
         selectedRow={selectedRow}
         type="stock"
+        deleteAction={() => console.log("Delete product")}
       />
     </div>
   );

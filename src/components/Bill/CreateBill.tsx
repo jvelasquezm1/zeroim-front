@@ -58,7 +58,8 @@ export default function CreateBills(props: any) {
   const handleClose = () => {
     setOpenModal(false);
   };
-  const handleDetailClose = () => {
+
+  const deleteBillDetail = () => {
     if (selectedDetailRow.delete) {
       const filteredArray = billDetail.filter(
         (item: any) => item.productId !== selectedDetailRow.productId
@@ -68,6 +69,7 @@ export default function CreateBills(props: any) {
     }
     setOpenDetailModal(false);
   };
+
   const setOpenDetailModalWithDetailData = (
     detail: any,
     edit: any,
@@ -219,11 +221,12 @@ export default function CreateBills(props: any) {
       </form>
       <Modals
         openModal={openDetailModal}
-        handleClose={handleDetailClose}
+        handleClose={() => setOpenDetailModal(false)}
         selectedRow={selectedDetailRow}
         type="billDetail"
         setDetailID={setBillDetail}
         billDetail={billDetail}
+        deleteAction={deleteBillDetail}
       />
       <SuccessAlert openModal={openModal} handleClose={handleClose} />
       <button

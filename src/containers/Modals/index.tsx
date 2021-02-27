@@ -42,7 +42,7 @@ export default function Modals(props: ModalsProps) {
           Cancelar
         </Button>
         {props.selectedRow.delete && (
-          <Button onClick={props.handleClose} color="secondary">
+          <Button onClick={props.deleteAction} color="secondary">
             Borrar
           </Button>
         )}
