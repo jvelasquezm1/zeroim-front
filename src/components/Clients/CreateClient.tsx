@@ -46,6 +46,11 @@ export default function CreateClient(props: any) {
     setOpenModal(true);
   };
 
+  const updateClient = () => {
+    console.log(id, idType, name, address, phone);
+    // setOpenModal(true);
+  };
+
   return (
     <div className="create-container">
       <form>
@@ -99,7 +104,7 @@ export default function CreateClient(props: any) {
         />
       </form>
       <SuccessAlert openModal={openModal} handleClose={handleClose} />
-      <button className="create-button" onClick={addClient}>
+      <button className="create-button" onClick={props.edit ? updateClient : addClient}>
         {props.edit ? "Editar" : "Crear"}
       </button>
     </div>

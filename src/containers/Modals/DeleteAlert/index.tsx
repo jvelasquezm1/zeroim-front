@@ -5,23 +5,31 @@ export default function DeleteAlert(props: DeleteAlertProps) {
   const renderEditForm = () => {
     switch (props.type) {
       case "stock": {
-        console.log(props.selectedRow);
-        return <div>¿Seguro?</div>;
+        return (
+          <div>Seguro quiere borrar el producto {props.selectedRow.name}?</div>
+        );
       }
-      case "client": {
-        console.log(props.selectedRow);
-        return <div>¿Seguro?</div>;
+      case "clients": {
+        return (
+          <div>¿Seguro quiere borrar el cliente {props.selectedRow.name}?</div>
+        );
       }
       case "bill": {
-        console.log(props.selectedRow);
-        return <div>¿Seguro?</div>;
+        return (
+          <div>
+            ¿Seguro quiere borrar la factura {props.selectedRow.billNumber}?
+          </div>
+        );
       }
       case "billDetail": {
-        console.log(props.selectedRow);
-        return <div>¿Seguro?</div>;
+        return (
+          <div>
+            ¿Seguro quiere borrar el producto {props.selectedRow.productName}{" "}
+            del detalle de la factura?
+          </div>
+        );
       }
       default: {
-        console.log(props.selectedRow);
         return <div>¿Seguro?</div>;
       }
     }

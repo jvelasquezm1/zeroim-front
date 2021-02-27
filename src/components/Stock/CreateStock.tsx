@@ -40,6 +40,11 @@ export default function CreateStock(props: any) {
     setOpenModal(true);
   };
 
+  const editStock = () => {
+    console.log(id, product, price, quantity);
+    // setOpenModal(true);
+  };
+
   return (
     <div className="create-container">
       <form>
@@ -84,7 +89,10 @@ export default function CreateStock(props: any) {
         />
       </form>
       <SuccessAlert openModal={openModal} handleClose={handleClose} />
-      <button className="create-button" onClick={addStock_}>
+      <button
+        className="create-button"
+        onClick={props.edit ? editStock : addStock_}
+      >
         {props.edit ? "Editar" : "Crear"}
       </button>
     </div>
