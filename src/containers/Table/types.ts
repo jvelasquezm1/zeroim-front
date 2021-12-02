@@ -1,7 +1,7 @@
-import { RowsProp, ColDef } from "@material-ui/data-grid";
+import { GridColDef } from "@material-ui/data-grid";
 
 export interface TableProps {
-  rows: RowsProp;
-  columns: ColDef[];
+  rows: any;
+  columns: GridColDef[];
   pageSize: number;
 }

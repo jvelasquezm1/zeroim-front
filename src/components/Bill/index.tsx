@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { compose } from "redux";
-import { ColDef, CellParams } from "@material-ui/data-grid";
+import { GridColDef, GridCellParams } from "@material-ui/data-grid";
 import {
   TextField,
   Button,
@@ -18,18 +18,18 @@ import {
 } from "@material-ui/core";
 import isEmpty from "lodash/isEmpty";
 import filter from "lodash/filter";
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+// import DateFnsUtils from "@date-io/date-fns";
+// import {
+//   MuiPickersUtilsProvider,
+//   KeyboardDatePicker,
+// } from "@material-ui/pickers";
 
 import { default as Util } from "src/containers/Table";
 import Modals from "src/containers/Modals";
 import Actions from "src/containers/Actions";
 import {
   filterByTextValue,
-  filterByDateValue,
+  // filterByDateValue,
   filterByNumberValue,
 } from "src/utils";
 import { noResults, noResultsColumns } from "src/utils/constants";
@@ -149,13 +149,13 @@ function Bill(props: any) {
       </div>
     );
   };
-  const columns: ColDef[] = [
+  const columns: GridColDef[] = [
     { field: "billNumber", headerName: "ID", width: 100 },
     {
       field: "date",
       headerName: "Fecha",
       width: 220,
-      renderCell: (params: CellParams) => {
+      renderCell: (params: GridCellParams) => {
         return <p>{new Date(params.row.date).toLocaleString()}</p>;
       },
     },
@@ -163,7 +163,7 @@ function Bill(props: any) {
       field: "clientId",
       headerName: "Cliente",
       width: 220,
-      renderCell: (params: CellParams) => {
+      renderCell: (params: GridCellParams) => {
         const client = filter(clientsProps, { id: params.row.clientId }) as any;
         return <p>{isEmpty(client) ? "" : client[0].name}</p>;
       },
@@ -172,7 +172,7 @@ function Bill(props: any) {
       field: "billDetail",
       headerName: "Detalles",
       width: 220,
-      renderCell: (params: CellParams) => {
+      renderCell: (params: GridCellParams) => {
         return renderBillDetails(params);
       },
     },
@@ -181,8 +181,7 @@ function Bill(props: any) {
       field: "",
       headerName: "Action",
       width: 140,
-      disableClickEventBubbling: true,
-      renderCell: (params: CellParams) => {
+      renderCell: (params: GridCellParams) => {
         return (
           <Actions
             setSelectedRow={setSelectedRow}
@@ -215,7 +214,8 @@ function Bill(props: any) {
             setBills(filteredValue);
           }}
         />
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        {/* // TODO: UPDATE DATE PICKER */}
+        {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
             format="MM/dd/yyyy"
             id="date-picker-inline"
@@ -230,7 +230,7 @@ function Bill(props: any) {
               setBills(filteredValue);
             }}
           />
-        </MuiPickersUtilsProvider>
+        </MuiPickersUtilsProvider> */}
         <TextField
           id="clientId"
           label="Cliente"
@@ -265,7 +265,7 @@ function Bill(props: any) {
         </Button>
       </div>
       <Util
-        rows={isEmpty(bills) ? billsProps : bills}
+        rows={isEmpty(bills) ? [] : bills}
         columns={bills === noResults ? noResultsColumns : columns}
         pageSize={10}
       />

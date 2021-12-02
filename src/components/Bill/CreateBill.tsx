@@ -16,11 +16,11 @@ import isEmpty from "lodash/isEmpty";
 import filter from "lodash/filter";
 import SuccessAlert from "src/containers/Modals/SuccessAlert";
 import { addBills } from "src/services/bills.services";
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+// import DateFnsUtils from "@date-io/date-fns";
+// import {
+//   MuiPickersUtilsProvider,
+//   KeyboardDatePicker,
+// } from "@material-ui/pickers";
 import { Autocomplete } from "@material-ui/lab";
 import Modals from "src/containers/Modals";
 import { useSelector } from "react-redux";
@@ -53,7 +53,7 @@ export default function CreateBills(props: any) {
 
   React.useEffect(() => {
     billDetail.map((bill: any) => setTotal(total + bill.totalValue));
-  }, [billDetail]);
+  }, [billDetail, total]);
 
   const handleClose = () => {
     setOpenModal(false);
@@ -128,7 +128,8 @@ export default function CreateBills(props: any) {
           placeholder="ID"
         />
         <h4>Fecha</h4>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        {/* // TODO: UPDATE DATE PICKER */}
+        {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
             format="MM/dd/yyyy"
             id="date-picker-inline"
@@ -136,11 +137,11 @@ export default function CreateBills(props: any) {
             onChange={handleDate}
             className="form-input"
           />
-        </MuiPickersUtilsProvider>
+        </MuiPickersUtilsProvider> */}
         <h4>Cliente</h4>
         <Autocomplete
           id="clientId"
-          options={clientsProps}
+          options={isEmpty(clientsProps) ? [] : clientsProps}
           getOptionLabel={(option) => option.name || getClientName()}
           defaultValue={clientId}
           onChange={(event: any, newValue: string | null) => {

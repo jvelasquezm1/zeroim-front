@@ -3,6 +3,7 @@ import { Input, TextField } from "@material-ui/core";
 import SuccessAlert from "src/containers/Modals/SuccessAlert";
 import { useSelector } from "react-redux";
 import { Autocomplete } from "@material-ui/lab";
+import { isEmpty } from "lodash";
 
 export default function CreateBillDetail(props: any) {
   const stockProps = useSelector((state: any) => state.stock.stock);
@@ -62,7 +63,7 @@ export default function CreateBillDetail(props: any) {
         <h4>Producto</h4>
         <Autocomplete
           id="name"
-          options={stockProps}
+          options={isEmpty(stockProps) ? [] : stockProps}
           className="form-input"
           getOptionLabel={(option: any) => option.name || name}
           defaultValue={name}

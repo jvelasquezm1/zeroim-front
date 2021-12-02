@@ -13,7 +13,7 @@ const request = async <T>(endpoint: string, method: ApiMethods, options?: Reques
 			data: await result.json(),
 			status: result.status,
 		};
-	} catch (ex) {
+	} catch (ex: any) {
 		return {
 			data: ex,
 			status: 500

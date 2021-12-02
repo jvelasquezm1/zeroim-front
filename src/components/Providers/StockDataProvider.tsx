@@ -8,7 +8,7 @@ export default function BillsDataProvider(props: any) {
 
   React.useEffect(() => {
     dispatch(stockActions.fetchStock());
-  }, []);
+  }, [dispatch]);
 
   return props.doRender({ stockData: { stockProps } });
 }

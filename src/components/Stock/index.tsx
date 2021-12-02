@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { compose } from "redux";
-import { ColDef, CellParams } from "@material-ui/data-grid";
+import { GridColDef, GridCellParams } from "@material-ui/data-grid";
 import { TextField } from "@material-ui/core";
 import isEmpty from "lodash/isEmpty";
 
@@ -30,7 +30,7 @@ function Stock(props: any) {
   const handleOpen = () => {
     setOpenModal(true);
   };
-  const columns: ColDef[] = [
+  const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 120 },
     { field: "name", headerName: "Producto", width: 293 },
     { field: "price", headerName: "Precio", width: 293 },
@@ -38,9 +38,8 @@ function Stock(props: any) {
     {
       field: "",
       headerName: "Action",
-      disableClickEventBubbling: true,
       width: 120,
-      renderCell: (params: CellParams) => {
+      renderCell: (params: GridCellParams) => {
         return (
           <Actions
             setSelectedRow={setSelectedRow}
@@ -109,7 +108,7 @@ function Stock(props: any) {
         />
       </div>
       <Table
-        rows={isEmpty(stock) ? stockProps : stock}
+        rows={isEmpty(stock) ? [] : stock}
         columns={stock === noResults ? noResultsColumns : columns}
         pageSize={10}
       />

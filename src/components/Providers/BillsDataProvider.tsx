@@ -8,7 +8,7 @@ export default function BillsDataProvider(props: any) {
 
   React.useEffect(() => {
     dispatch(billsActions.fetchBills());
-  }, []);
+  }, [dispatch]);
 
   return props.doRender({ billsData: { billsProps } });
 }

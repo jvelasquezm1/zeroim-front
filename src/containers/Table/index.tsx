@@ -8,6 +8,7 @@ export default function Table(props: TableProps) {
       rows={props.rows}
       columns={props.columns}
       pageSize={props.pageSize}
+      rowsPerPageOptions={[10, 20, 30]}
     />
   );
 }

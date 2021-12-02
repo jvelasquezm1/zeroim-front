@@ -1,9 +1,8 @@
 import React from "react";
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
-  Redirect,
+  Routes
 } from "react-router-dom";
 
 import "font-awesome/css/font-awesome.min.css";
@@ -24,16 +23,15 @@ const App: React.FC = () => {
     <Router>
       <div className="flex-container">
         <Menu />
-        <Switch>
-          <Route path="/clientes" exact component={Clients} />
-          <Route path="/clientes/crear" exact component={CreateClient} />
-          <Route path="/inventario" exact component={Stock} />
-          <Route path="/inventario/crear" exact component={CreateStock} />
-          <Route path="/facturas" exact component={Bill} />
-          <Route path="/facturas/crear" exact component={CreateBills} />
-          <Route path="/" exact component={Home} />
-          <Redirect to="/" />
-        </Switch>
+        <Routes>
+          <Route path="/clientes" element={<Clients />} />
+          <Route path="/clientes/crear" element={<CreateClient />} />
+          <Route path="/inventario" element={<Stock />} />
+          <Route path="/inventario/crear" element={<CreateStock />} />
+          <Route path="/facturas" element={<Bill />} />
+          <Route path="/facturas/crear" element={<CreateBills />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
       </div>
     </Router>
   );

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { compose } from "redux";
-import { ColDef, CellParams } from "@material-ui/data-grid";
+import { GridColDef, GridCellParams } from "@material-ui/data-grid";
 import { TextField } from "@material-ui/core";
 import isEmpty from "lodash/isEmpty";
 
@@ -30,7 +30,7 @@ function Client(props: any) {
   const handleOpen = () => {
     setOpenModal(true);
   };
-  const columns: ColDef[] = [
+  const columns: GridColDef[] = [
     { field: "idType", headerName: "Tipo de Id", width: 185 },
     { field: "idNumber", headerName: "Numero", width: 185 },
     { field: "name", headerName: "Nombre", width: 185 },
@@ -40,8 +40,7 @@ function Client(props: any) {
       field: "",
       headerName: "Action",
       width: 195,
-      disableClickEventBubbling: true,
-      renderCell: (params: CellParams) => {
+      renderCell: (params: GridCellParams) => {
         return (
           <Actions
             setSelectedRow={setSelectedRow}
@@ -122,7 +121,7 @@ function Client(props: any) {
         />
       </div>
       <Table
-        rows={isEmpty(clients) ? clientsProps : clients}
+        rows={isEmpty(clients) ? [] : clients}
         columns={clients === noResults ? noResultsColumns : columns}
         pageSize={10}
       />
